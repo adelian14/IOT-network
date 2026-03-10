@@ -1,0 +1,55 @@
+{
+  "sensor_topics": {
+    "light": "home/lighting/data",
+    "temp": "home/thermo/data",
+    "sound": "home/sound/data",
+    "motion": "home/door/data",
+    "camera": "home/camera/data",
+    "smart-plug": "home/smart-plug/data",
+    "Smart-Air-Purifier": "home/Smart-Air-Purifier/data",
+    "Smart-Doorbell": "home/Smart-Doorbell/data",
+    "Smoke-Gas-Sensor": "home/Smoke-Gas-Sensor/data",
+    "Smart-Speaker": "home/Smart-Speaker/data"
+  },
+  "actuator_topics": {
+    "light": "home/lighting/control",
+    "thermo": "home/thermo/control",
+    "sound": "home/sound/control",
+    "door": "home/door/control",
+    "camera": "home/camera/control",
+    "smart-plug": "home/smart-plug/control",
+    "Smart-Air-Purifier": "home/Smart-Air-Purifier/control",
+    "Smart-Doorbell": "home/Smart-Doorbell/control",
+    "Smoke-Gas-Sensor": "home/Smoke-Gas-Sensor/control",
+    "Smart-Speaker": "home/Smart-Speaker/control"
+  },
+  "security_topics": {
+    "alert": "security/alert",
+    "action": "security/action",
+    "heartbeat": "security/heartbeat",
+    "cpu_status": "security/cpu_status",
+    "log": "security/log"
+  },
+  "topic_to_device_map": {
+    "home/lighting/data": "light-sensor",
+    "home/thermo/data": "temp-sensor",
+    "home/sound/data": "sound-sensor",
+    "home/door/data": "motion-sensor",
+    "home/camera/data": "camera-sensor",
+    "home/smart-plug/data": "smart-plug-sensor",
+    "home/Smart-Air-Purifier/data": "air-purifier-sensor",
+    "home/Smart-Doorbell/data": "doorbell-sensor",
+    "home/Smoke-Gas-Sensor/data": "smoke-gas-sensor",
+    "home/Smart-Speaker/data": "smart-speaker-sensor",
+    "home/lighting/control": "cpu",
+    "home/thermo/control": "cpu",
+    "home/sound/control": "cpu",
+    "home/door/control": "cpu",
+    "home/camera/control": "cpu",
+    "home/smart-plug/control": "cpu",
+    "home/Smart-Air-Purifier/control": "cpu",
+    "home/Smart-Doorbell/control": "cpu",
+    "home/Smoke-Gas-Sensor/control": "cpu",
+    "home/Smart-Speaker/control": "cpu"
+  }
+}

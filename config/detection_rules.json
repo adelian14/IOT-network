@@ -1,0 +1,97 @@
+{
+  "value_ranges": {
+    "light": {
+      "type": "enum",
+      "allowed_values": ["day", "night"],
+      "topic": "home/lighting/data"
+    },
+    "temp": {
+      "type": "numeric",
+      "min": -10,
+      "max": 60,
+      "topic": "home/thermo/data"
+    },
+    "sound": {
+      "type": "numeric",
+      "min": 0,
+      "max": 120,
+      "topic": "home/sound/data"
+    },
+    "motion": {
+      "type": "enum",
+      "allowed_values": ["detected", "none"],
+      "topic": "home/door/data"
+    },
+    "camera": {
+      "type": "enum",
+      "allowed_values": ["motion", "clear"],
+      "topic": "home/camera/data"
+    },
+    "smart-plug": {
+      "type": "enum",
+      "allowed_values": ["on", "off"],
+      "topic": "home/smart-plug/data"
+    },
+    "Smart-Air-Purifier": {
+      "type": "enum",
+      "allowed_values": ["good", "poor"],
+      "topic": "home/Smart-Air-Purifier/data"
+    },
+    "Smart-Doorbell": {
+      "type": "enum",
+      "allowed_values": ["pressed", "idle"],
+      "topic": "home/Smart-Doorbell/data"
+    },
+    "Smoke-Gas-Sensor": {
+      "type": "enum",
+      "allowed_values": ["gas_detected", "normal"],
+      "topic": "home/Smoke-Gas-Sensor/data"
+    },
+    "Smart-Speaker": {
+      "type": "enum",
+      "allowed_values": ["play", "stop"],
+      "topic": "home/Smart-Speaker/data"
+    }
+  },
+  "frequency_limits": {
+    "default_max_per_minute": 15,
+    "alert_threshold_multiplier": 2.0
+  },
+  "topic_acl": {
+    "home/lighting/data": ["light-sensor"],
+    "home/thermo/data": ["temp-sensor"],
+    "home/sound/data": ["sound-sensor"],
+    "home/door/data": ["motion-sensor"],
+    "home/camera/data": ["camera-sensor"],
+    "home/smart-plug/data": ["smart-plug-sensor"],
+    "home/Smart-Air-Purifier/data": ["air-purifier-sensor"],
+    "home/Smart-Doorbell/data": ["doorbell-sensor"],
+    "home/Smoke-Gas-Sensor/data": ["smoke-gas-sensor"],
+    "home/Smart-Speaker/data": ["smart-speaker-sensor"],
+    "home/lighting/control": ["cpu"],
+    "home/thermo/control": ["cpu"],
+    "home/sound/control": ["cpu"],
+    "home/door/control": ["cpu"],
+    "home/camera/control": ["cpu"],
+    "home/smart-plug/control": ["cpu"],
+    "home/Smart-Air-Purifier/control": ["cpu"],
+    "home/Smart-Doorbell/control": ["cpu"],
+    "home/Smoke-Gas-Sensor/control": ["cpu"],
+    "home/Smart-Speaker/control": ["cpu"],
+    "security/alert": ["ids-node"],
+    "security/action": ["ids-node"],
+    "security/heartbeat": ["ids-node"],
+    "security/cpu_status": ["cpu"],
+    "security/log": ["ids-node"]
+  },
+  "severity_thresholds": {
+    "low": 3,
+    "medium": 5,
+    "high": 7,
+    "critical": 9
+  },
+  "llm_escalation_threshold": {
+    "min_severity": 5,
+    "max_confidence": 0.6
+  }
+}

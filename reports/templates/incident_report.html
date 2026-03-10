@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Incident Report - {{ incident.id }}</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f1117; color: #e1e4e8; line-height: 1.6; padding: 2rem; }
+  .container { max-width: 960px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #1a1e2e, #2d1f3d); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; border-left: 4px solid {{ severity_color }}; }
+  .header h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .header .meta { color: #8b949e; font-size: 0.9rem; }
+  .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
+  .badge-critical { background: #da3633; color: #fff; }
+  .badge-high { background: #d29922; color: #000; }
+  .badge-medium { background: #e3b341; color: #000; }
+  .badge-low { background: #3fb950; color: #000; }
+  .badge-info { background: #58a6ff; color: #000; }
+  .card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .card h2 { font-size: 1.15rem; margin-bottom: 1rem; color: #58a6ff; border-bottom: 1px solid #21262d; padding-bottom: 0.5rem; }
+  .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .detail-item { background: #0d1117; padding: 0.75rem 1rem; border-radius: 6px; border: 1px solid #21262d; }
+  .detail-item .label { font-size: 0.75rem; color: #8b949e; text-transform: uppercase; letter-spacing: 0.05em; }
+  .detail-item .value { font-size: 0.95rem; margin-top: 0.25rem; word-break: break-all; }
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before { content: ''; position: absolute; left: 0.5rem; top: 0; bottom: 0; width: 2px; background: #30363d; }
+  .timeline-item { position: relative; margin-bottom: 1.25rem; }
+  .timeline-item::before { content: ''; position: absolute; left: -1.65rem; top: 0.4rem; width: 10px; height: 10px; border-radius: 50%; background: #58a6ff; border: 2px solid #161b22; }
+  .timeline-item.threat::before { background: #da3633; }
+  .timeline-item.action::before { background: #3fb950; }
+  .timeline-item .time { font-size: 0.8rem; color: #8b949e; }
+  .timeline-item .desc { margin-top: 0.2rem; }
+  .rules-list { list-style: none; }
+  .rules-list li { padding: 0.6rem 0; border-bottom: 1px solid #21262d; }
+  .rules-list li:last-child { border-bottom: none; }
+  .rule-name { color: #f0883e; font-weight: 600; }
+  .rule-detail { color: #c9d1d9; font-size: 0.9rem; }
+  .llm-box { background: #0d1117; border: 1px solid #238636; border-radius: 8px; padding: 1.25rem; margin-top: 0.75rem; }
+  .llm-box .source { font-size: 0.75rem; color: #3fb950; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .action-box { background: #0d1117; border: 1px solid #d29922; border-radius: 8px; padding: 1rem; }
+  .action-box code { background: #161b22; padding: 0.15rem 0.4rem; border-radius: 4px; font-family: 'Consolas', monospace; color: #f0883e; }
+  .mitigation-list { list-style: none; counter-reset: step; }
+  .mitigation-list li { counter-increment: step; padding: 0.5rem 0; padding-left: 2rem; position: relative; }
+  .mitigation-list li::before { content: counter(step); position: absolute; left: 0; top: 0.5rem; width: 1.5rem; height: 1.5rem; background: #21262d; border-radius: 50%; text-align: center; font-size: 0.8rem; line-height: 1.5rem; color: #58a6ff; }
+  .footer { text-align: center; color: #484f58; font-size: 0.8rem; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #21262d; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>Incident Report <span class="badge badge-{{ severity_class }}">{{ incident.severity_label }}</span></h1>
+    <div class="meta">
+      ID: {{ incident.id }} &bull; Detected: {{ incident.timestamp_readable }}
+      {% if incident.healed_at %} &bull; Healed: {{ incident.healed_at }}{% endif %}
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Threat Details</h2>
+    <div class="detail-grid">
+      <div class="detail-item">
+        <div class="label">Source IP</div>
+        <div class="value">{{ incident.packet.source_ip }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Client ID</div>
+        <div class="value">{{ incident.packet.client_id }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">MQTT Topic</div>
+        <div class="value">{{ incident.packet.topic }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Severity Score</div>
+        <div class="value">{{ incident.severity }} / 10</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Confidence</div>
+        <div class="value">{{ "%.0f"|format(incident.confidence * 100) }}%</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Decision</div>
+        <div class="value">{{ incident.decision }}</div>
+      </div>
+    </div>
+    <div class="detail-item" style="margin-top: 0.75rem;">
+      <div class="label">Payload</div>
+      <div class="value" style="font-family: Consolas, monospace; color: #f0883e;">{{ incident.packet.payload }}</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Rules Triggered</h2>
+    <ul class="rules-list">
+      {% for rule in incident.rules_triggered %}
+      <li>
+        <span class="rule-name">{{ rule.rule_name }}</span>
+        (severity: {{ rule.severity }}, confidence: {{ "%.0f"|format(rule.confidence * 100) }}%)
+        <div class="rule-detail">{{ rule.detail }}</div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Timeline</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="time">{{ incident.packet.timestamp_readable }}</div>
+        <div class="desc">Packet received on topic <strong>{{ incident.packet.topic }}</strong></div>
+      </div>
+      <div class="timeline-item threat">
+        <div class="time">{{ incident.timestamp_readable }}</div>
+        <div class="desc">Threat detected &mdash; {{ incident.rules_triggered | length }} rule(s) triggered (severity {{ incident.severity }})</div>
+      </div>
+      {% if incident.llm_analysis %}
+      <div class="timeline-item">
+        <div class="time">{{ incident.llm_analysis.analyzed_at if incident.llm_analysis.analyzed_at else 'N/A' }}</div>
+        <div class="desc">LLM analysis completed (source: {{ incident.llm_analysis.source }})</div>
+      </div>
+      {% endif %}
+      {% if incident.action_taken %}
+      <div class="timeline-item action">
+        <div class="time">{{ incident.healed_at if incident.healed_at else 'N/A' }}</div>
+        <div class="desc">Self-healing action executed: <strong>{{ incident.action_taken.action }}</strong> on {{ incident.action_taken.device }}</div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if incident.llm_analysis %}
+  <div class="card">
+    <h2>LLM Analysis</h2>
+    <div class="llm-box">
+      <div class="source">{{ incident.llm_analysis.source | default('gemini') }} analysis</div>
+      <p><strong>Threat Level:</strong> {{ incident.llm_analysis.threat_level }}</p>
+      <p><strong>Threat Type:</strong> {{ incident.llm_analysis.threat_type }}</p>
+      <p style="margin-top: 0.5rem;">{{ incident.llm_analysis.explanation }}</p>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if incident.action_taken %}
+  <div class="card">
+    <h2>Action Taken &amp; Self-Healing</h2>
+    <div class="action-box">
+      <p><strong>Primary Action:</strong> <code>{{ incident.action_taken.action }}</code></p>
+      <p><strong>Target Device:</strong> {{ incident.action_taken.device }}</p>
+      {% if incident.action_taken.actuator %}
+      <p><strong>Affected Actuator:</strong> {{ incident.action_taken.actuator }}</p>
+      {% endif %}
+      <p><strong>Duration:</strong> {{ incident.action_taken.duration }}s</p>
+      <p><strong>Reason:</strong> {{ incident.action_taken.reason }}</p>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="card">
+    <h2>Recommended Mitigation Steps</h2>
+    <ol class="mitigation-list">
+      {% for step in mitigation_steps %}
+      <li>{{ step }}</li>
+      {% endfor %}
+    </ol>
+  </div>
+
+  <div class="footer">
+    IoT Network Security System &mdash; Incident Report &mdash; Generated {{ generated_at }}
+  </div>
+</div>
+</body>
+</html>

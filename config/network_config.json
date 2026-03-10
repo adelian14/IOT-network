@@ -1,0 +1,156 @@
+{
+  "network": {
+    "subnet": "10.0.0.0/24",
+    "gateway": "10.0.0.1",
+    "broker": {
+      "ip": "10.0.0.100",
+      "port": 1883
+    },
+    "security_system": {
+      "ip": "10.0.0.99",
+      "name": "ids-node"
+    },
+    "offensive_node": {
+      "ip": "10.0.0.50",
+      "name": "attacker-node"
+    }
+  },
+  "devices": {
+    "router": {
+      "ip": "10.0.0.1",
+      "type": "router",
+      "name": "router"
+    },
+    "light-sensor": {
+      "ip": "10.0.0.2",
+      "type": "sensor",
+      "name": "light",
+      "mqtt_topic": "home/lighting/data"
+    },
+    "temp-sensor": {
+      "ip": "10.0.0.3",
+      "type": "sensor",
+      "name": "temp",
+      "mqtt_topic": "home/thermo/data"
+    },
+    "sound-sensor": {
+      "ip": "10.0.0.4",
+      "type": "sensor",
+      "name": "sound",
+      "mqtt_topic": "home/sound/data"
+    },
+    "motion-sensor": {
+      "ip": "10.0.0.5",
+      "type": "sensor",
+      "name": "motion",
+      "mqtt_topic": "home/door/data"
+    },
+    "camera-sensor": {
+      "ip": "10.0.0.6",
+      "type": "sensor",
+      "name": "camera",
+      "mqtt_topic": "home/camera/data"
+    },
+    "smart-plug-sensor": {
+      "ip": "10.0.0.7",
+      "type": "sensor",
+      "name": "smart-plug",
+      "mqtt_topic": "home/smart-plug/data"
+    },
+    "air-purifier-sensor": {
+      "ip": "10.0.0.8",
+      "type": "sensor",
+      "name": "Smart-Air-Purifier",
+      "mqtt_topic": "home/Smart-Air-Purifier/data"
+    },
+    "doorbell-sensor": {
+      "ip": "10.0.0.9",
+      "type": "sensor",
+      "name": "Smart-Doorbell",
+      "mqtt_topic": "home/Smart-Doorbell/data"
+    },
+    "smoke-gas-sensor": {
+      "ip": "10.0.0.10",
+      "type": "sensor",
+      "name": "Smoke-Gas-Sensor",
+      "mqtt_topic": "home/Smoke-Gas-Sensor/data"
+    },
+    "smart-speaker-sensor": {
+      "ip": "10.0.0.11",
+      "type": "sensor",
+      "name": "Smart-Speaker",
+      "mqtt_topic": "home/Smart-Speaker/data"
+    },
+    "light-actuator": {
+      "ip": "10.0.0.12",
+      "type": "actuator",
+      "name": "light",
+      "mqtt_topic": "home/lighting/control"
+    },
+    "thermo-actuator": {
+      "ip": "10.0.0.13",
+      "type": "actuator",
+      "name": "thermo",
+      "mqtt_topic": "home/thermo/control"
+    },
+    "sound-actuator": {
+      "ip": "10.0.0.14",
+      "type": "actuator",
+      "name": "sound",
+      "mqtt_topic": "home/sound/control"
+    },
+    "door-actuator": {
+      "ip": "10.0.0.15",
+      "type": "actuator",
+      "name": "door",
+      "mqtt_topic": "home/door/control"
+    },
+    "camera-actuator": {
+      "ip": "10.0.0.16",
+      "type": "actuator",
+      "name": "camera",
+      "mqtt_topic": "home/camera/control"
+    },
+    "smart-plug-actuator": {
+      "ip": "10.0.0.17",
+      "type": "actuator",
+      "name": "smart-plug",
+      "mqtt_topic": "home/smart-plug/control"
+    },
+    "air-purifier-actuator": {
+      "ip": "10.0.0.18",
+      "type": "actuator",
+      "name": "Smart-Air-Purifier",
+      "mqtt_topic": "home/Smart-Air-Purifier/control"
+    },
+    "doorbell-actuator": {
+      "ip": "10.0.0.19",
+      "type": "actuator",
+      "name": "Smart-Doorbell",
+      "mqtt_topic": "home/Smart-Doorbell/control"
+    },
+    "smoke-gas-actuator": {
+      "ip": "10.0.0.20",
+      "type": "actuator",
+      "name": "Smoke-Gas-Sensor",
+      "mqtt_topic": "home/Smoke-Gas-Sensor/control"
+    },
+    "smart-speaker-actuator": {
+      "ip": "10.0.0.21",
+      "type": "actuator",
+      "name": "Smart-Speaker",
+      "mqtt_topic": "home/Smart-Speaker/control"
+    },
+    "cpu": {
+      "ip": "10.0.0.100",
+      "type": "cpu",
+      "name": "cpu",
+      "client_id": "cpu-controller"
+    }
+  },
+  "trusted_ip_range": {
+    "start": "10.0.0.1",
+    "end": "10.0.0.21",
+    "additional": ["10.0.0.99", "10.0.0.100"]
+  }
+}

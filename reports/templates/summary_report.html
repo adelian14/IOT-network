@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IDS Summary Report - {{ date }}</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f1117; color: #e1e4e8; line-height: 1.6; padding: 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #1a1e2e, #1f2d1a); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; text-align: center; }
+  .header h1 { font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .header .sub { color: #8b949e; }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+  .stat-card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 1.25rem; text-align: center; }
+  .stat-card .num { font-size: 2rem; font-weight: 700; }
+  .stat-card .label { font-size: 0.85rem; color: #8b949e; margin-top: 0.25rem; }
+  .num-critical { color: #da3633; }
+  .num-high { color: #d29922; }
+  .num-medium { color: #e3b341; }
+  .num-safe { color: #3fb950; }
+  .card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .card h2 { font-size: 1.15rem; color: #58a6ff; border-bottom: 1px solid #21262d; padding-bottom: 0.5rem; margin-bottom: 1rem; }
+  table { width: 100%; border-collapse: collapse; }
+  th { background: #0d1117; text-align: left; padding: 0.6rem 0.8rem; font-size: 0.8rem; color: #8b949e; text-transform: uppercase; letter-spacing: 0.05em; }
+  td { padding: 0.6rem 0.8rem; border-top: 1px solid #21262d; font-size: 0.9rem; }
+  tr:hover td { background: #1c2128; }
+  .badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
+  .badge-critical { background: #da3633; color: #fff; }
+  .badge-high { background: #d29922; color: #000; }
+  .badge-medium { background: #e3b341; color: #000; }
+  .badge-low { background: #3fb950; color: #000; }
+  .footer { text-align: center; color: #484f58; font-size: 0.8rem; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #21262d; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>IDS Summary Report</h1>
+    <div class="sub">{{ date }} &bull; {{ total_incidents }} incident(s) recorded</div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="num num-critical">{{ critical_count }}</div>
+      <div class="label">Critical</div>
+    </div>
+    <div class="stat-card">
+      <div class="num num-high">{{ high_count }}</div>
+      <div class="label">High</div>
+    </div>
+    <div class="stat-card">
+      <div class="num num-medium">{{ medium_count }}</div>
+      <div class="label">Medium</div>
+    </div>
+    <div class="stat-card">
+      <div class="num num-safe">{{ low_count }}</div>
+      <div class="label">Low / Info</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Incident Log</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>ID</th>
+          <th>Severity</th>
+          <th>Source</th>
+          <th>Topic</th>
+          <th>Decision</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for inc in incidents %}
+        <tr>
+          <td>{{ inc.timestamp_readable }}</td>
+          <td>{{ inc.id }}</td>
+          <td><span class="badge badge-{{ inc.severity_label | lower }}">{{ inc.severity_label }}</span></td>
+          <td>{{ inc.packet.client_id }}</td>
+          <td>{{ inc.packet.topic }}</td>
+          <td>{{ inc.decision }}</td>
+          <td>{{ inc.action_taken.action if inc.action_taken else '-' }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% if attack_types %}
+  <div class="card">
+    <h2>Attack Types Observed</h2>
+    <table>
+      <thead>
+        <tr><th>Attack Type</th><th>Count</th></tr>
+      </thead>
+      <tbody>
+        {% for atype, count in attack_types.items() %}
+        <tr><td>{{ atype }}</td><td>{{ count }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+
+  <div class="footer">
+    IoT Network Security System &mdash; Summary Report &mdash; Generated {{ generated_at }}
+  </div>
+</div>
+</body>
+</html>
