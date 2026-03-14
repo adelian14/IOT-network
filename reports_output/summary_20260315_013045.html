@@ -1,0 +1,2407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IDS Summary Report - 2026-03-15</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f1117; color: #e1e4e8; line-height: 1.6; padding: 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #1a1e2e, #1f2d1a); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; text-align: center; }
+  .header h1 { font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .header .sub { color: #8b949e; }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+  .stat-card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 1.25rem; text-align: center; }
+  .stat-card .num { font-size: 2rem; font-weight: 700; }
+  .stat-card .label { font-size: 0.85rem; color: #8b949e; margin-top: 0.25rem; }
+  .num-critical { color: #da3633; }
+  .num-high { color: #d29922; }
+  .num-medium { color: #e3b341; }
+  .num-safe { color: #3fb950; }
+  .card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .card h2 { font-size: 1.15rem; color: #58a6ff; border-bottom: 1px solid #21262d; padding-bottom: 0.5rem; margin-bottom: 1rem; }
+  table { width: 100%; border-collapse: collapse; }
+  th { background: #0d1117; text-align: left; padding: 0.6rem 0.8rem; font-size: 0.8rem; color: #8b949e; text-transform: uppercase; letter-spacing: 0.05em; }
+  td { padding: 0.6rem 0.8rem; border-top: 1px solid #21262d; font-size: 0.9rem; }
+  tr:hover td { background: #1c2128; }
+  .badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
+  .badge-critical { background: #da3633; color: #fff; }
+  .badge-high { background: #d29922; color: #000; }
+  .badge-medium { background: #e3b341; color: #000; }
+  .badge-low { background: #3fb950; color: #000; }
+  .footer { text-align: center; color: #484f58; font-size: 0.8rem; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #21262d; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>IDS Summary Report</h1>
+    <div class="sub">2026-03-15 &bull; 230 incident(s) recorded</div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="num num-critical">3</div>
+      <div class="label">Critical</div>
+    </div>
+    <div class="stat-card">
+      <div class="num num-high">180</div>
+      <div class="label">High</div>
+    </div>
+    <div class="stat-card">
+      <div class="num num-medium">47</div>
+      <div class="label">Medium</div>
+    </div>
+    <div class="stat-card">
+      <div class="num num-safe">0</div>
+      <div class="label">Low / Info</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Incident Log</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>ID</th>
+          <th>Severity</th>
+          <th>Source</th>
+          <th>Topic</th>
+          <th>Decision</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td>2026-03-15 01:28:57.080</td>
+          <td>THREAT-20260315012857079651</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:28:58.066</td>
+          <td>THREAT-20260315012858066399</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:28:59.068</td>
+          <td>THREAT-20260315012859068446</td>
+          <td><span class="badge badge-critical">CRITICAL</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:00.067</td>
+          <td>THREAT-20260315012900067081</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:01.067</td>
+          <td>THREAT-20260315012901067186</td>
+          <td><span class="badge badge-critical">CRITICAL</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:02.067</td>
+          <td>THREAT-20260315012902067224</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:03.067</td>
+          <td>THREAT-20260315012903067774</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:04.067</td>
+          <td>THREAT-20260315012904067527</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>Smoke-Gas-Sensor-sensor</td>
+          <td>home/Smoke-Gas-Sensor/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:05.068</td>
+          <td>THREAT-20260315012905068498</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:06.068</td>
+          <td>THREAT-20260315012906068822</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:07.068</td>
+          <td>THREAT-20260315012907068796</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:09.068</td>
+          <td>THREAT-20260315012909068887</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:10.072</td>
+          <td>THREAT-20260315012910072553</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:11.069</td>
+          <td>THREAT-20260315012911069357</td>
+          <td><span class="badge badge-critical">CRITICAL</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:11.602</td>
+          <td>THREAT-20260315012911602337</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the camera sensor from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:11.659</td>
+          <td>THREAT-20260315012911659117</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the camera (10.0.0.6) from the network immediately to prevent further malicious activity.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:16.576</td>
+          <td>THREAT-20260315012916576273</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the camera sensor (10.0.0.6) from the network immediately to prevent further propagation of potentially malicious data.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:17.075</td>
+          <td>THREAT-20260315012917075013</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:17.121</td>
+          <td>THREAT-20260315012917121878</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:17.170</td>
+          <td>THREAT-20260315012917170337</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:17.187</td>
+          <td>THREAT-20260315012917187740</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:17.238</td>
+          <td>THREAT-20260315012917238099</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:17.338</td>
+          <td>THREAT-20260315012917338369</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:17.441</td>
+          <td>THREAT-20260315012917441522</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:17.609</td>
+          <td>THREAT-20260315012917609220</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:17.657</td>
+          <td>THREAT-20260315012917657721</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:17.705</td>
+          <td>THREAT-20260315012917705748</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:17.713</td>
+          <td>THREAT-20260315012917713076</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:17.762</td>
+          <td>THREAT-20260315012917762151</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:17.811</td>
+          <td>THREAT-20260315012917811424</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:17.811</td>
+          <td>THREAT-20260315012917811763</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:17.861</td>
+          <td>THREAT-20260315012917861784</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:17.910</td>
+          <td>THREAT-20260315012917910324</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:17.914</td>
+          <td>THREAT-20260315012917914836</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:17.958</td>
+          <td>THREAT-20260315012917958547</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:18.005</td>
+          <td>THREAT-20260315012918005735</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:18.053</td>
+          <td>THREAT-20260315012918053739</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:18.102</td>
+          <td>THREAT-20260315012918101995</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:18.149</td>
+          <td>THREAT-20260315012918149780</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:18.150</td>
+          <td>THREAT-20260315012918150688</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:18.198</td>
+          <td>THREAT-20260315012918198077</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:18.246</td>
+          <td>THREAT-20260315012918246030</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:18.251</td>
+          <td>THREAT-20260315012918251216</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:18.294</td>
+          <td>THREAT-20260315012918294756</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:18.341</td>
+          <td>THREAT-20260315012918341973</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:18.585</td>
+          <td>THREAT-20260315012918585194</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:18.633</td>
+          <td>THREAT-20260315012918633944</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:18.719</td>
+          <td>THREAT-20260315012918719862</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:18.766</td>
+          <td>THREAT-20260315012918766085</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:18.822</td>
+          <td>THREAT-20260315012918822023</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:18.869</td>
+          <td>THREAT-20260315012918869779</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:18.929</td>
+          <td>THREAT-20260315012918929849</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:18.977</td>
+          <td>THREAT-20260315012918977904</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.025</td>
+          <td>THREAT-20260315012919025585</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.026</td>
+          <td>THREAT-20260315012919026691</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.092</td>
+          <td>THREAT-20260315012919092219</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.142</td>
+          <td>THREAT-20260315012919142067</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.190</td>
+          <td>THREAT-20260315012919190231</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.238</td>
+          <td>THREAT-20260315012919238015</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.238</td>
+          <td>THREAT-20260315012919238876</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.286</td>
+          <td>THREAT-20260315012919286018</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.337</td>
+          <td>THREAT-20260315012919337851</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.385</td>
+          <td>THREAT-20260315012919385712</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.400</td>
+          <td>THREAT-20260315012919400958</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.449</td>
+          <td>THREAT-20260315012919449757</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.505</td>
+          <td>THREAT-20260315012919505148</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.597</td>
+          <td>THREAT-20260315012919597743</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.645</td>
+          <td>THREAT-20260315012919645827</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.655</td>
+          <td>THREAT-20260315012919655932</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.676</td>
+          <td>THREAT-20260315012919676249</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>THREAT</td>
+          <td>Block traffic from the unknown source IP address, if identifiable.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.683</td>
+          <td>THREAT-20260315012919683074</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.733</td>
+          <td>THREAT-20260315012919733698</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.734</td>
+          <td>THREAT-20260315012919734071</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.785</td>
+          <td>THREAT-20260315012919785834</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.833</td>
+          <td>THREAT-20260315012919833952</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.925</td>
+          <td>THREAT-20260315012919925112</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:19.974</td>
+          <td>THREAT-20260315012919974227</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:20.136</td>
+          <td>THREAT-20260315012920136529</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:20.208</td>
+          <td>THREAT-20260315012920208322</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:20.258</td>
+          <td>THREAT-20260315012920258219</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:20.944</td>
+          <td>THREAT-20260315012920944182</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:21.180</td>
+          <td>THREAT-20260315012921180084</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:21.516</td>
+          <td>THREAT-20260315012921516299</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:21.777</td>
+          <td>THREAT-20260315012921776995</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:21.797</td>
+          <td>THREAT-20260315012921797780</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:22.071</td>
+          <td>THREAT-20260315012922071033</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the device (10.0.0.6) from the network immediately by blocking its traffic at the firewall.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:22.526</td>
+          <td>THREAT-20260315012922526027</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:22.615</td>
+          <td>THREAT-20260315012922615211</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:22.645</td>
+          <td>THREAT-20260315012922645545</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the device (10.0.0.6) from the network immediately to prevent further damage.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:23.247</td>
+          <td>THREAT-20260315012923247004</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:23.448</td>
+          <td>THREAT-20260315012923448716</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:23.497</td>
+          <td>THREAT-20260315012923497675</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:24.423</td>
+          <td>THREAT-20260315012924423757</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:24.582</td>
+          <td>THREAT-20260315012924582857</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:25.090</td>
+          <td>THREAT-20260315012925089982</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:25.266</td>
+          <td>THREAT-20260315012925266308</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Quarantine the camera sensor (10.0.0.6) immediately by blocking its network access.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:26.015</td>
+          <td>THREAT-20260315012926015169</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Quarantine the camera (10.0.0.6) by blocking all network traffic to and from it.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:27.060</td>
+          <td>THREAT-20260315012927060062</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the camera sensor (10.0.0.6) from the network to prevent further data transmission.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:27.080</td>
+          <td>THREAT-20260315012927080488</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:27.485</td>
+          <td>THREAT-20260315012927485127</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:27.653</td>
+          <td>THREAT-20260315012927653070</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the camera (10.0.0.6) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:28.735</td>
+          <td>THREAT-20260315012928735381</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the &#39;camera-sensor&#39; device (10.0.0.6) from the network to prevent further data manipulation or potential lateral movement.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:29.096</td>
+          <td>THREAT-20260315012929096856</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:29.562</td>
+          <td>THREAT-20260315012929561993</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:29.745</td>
+          <td>THREAT-20260315012929745305</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:30.643</td>
+          <td>THREAT-20260315012930643066</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>Isolate the &#39;light-sensor&#39; (10.0.0.2) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:30.856</td>
+          <td>THREAT-20260315012930856395</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>Isolate the device (10.0.0.2) from the network immediately to prevent further damage.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:31.464</td>
+          <td>THREAT-20260315012931464912</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:31.898</td>
+          <td>THREAT-20260315012931898719</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>Quarantine the light sensor (10.0.0.2) immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:32.433</td>
+          <td>THREAT-20260315012932433176</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the camera sensor from the network immediately to prevent further potentially malicious activity.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:32.927</td>
+          <td>THREAT-20260315012932927542</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:33.100</td>
+          <td>THREAT-20260315012933100064</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:33.917</td>
+          <td>THREAT-20260315012933917489</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>Isolate the light sensor (10.0.0.2) from the network immediately to prevent further potentially malicious communications.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:34.452</td>
+          <td>THREAT-20260315012934452388</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:34.806</td>
+          <td>THREAT-20260315012934806320</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>Quarantine the light-sensor device (10.0.0.2) by blocking its network access.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:35.381</td>
+          <td>THREAT-20260315012935381765</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>Isolate the motion sensor (10.0.0.5) from the network.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:35.988</td>
+          <td>THREAT-20260315012935988828</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the device &#39;camera-sensor&#39; (10.0.0.6) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:36.038</td>
+          <td>THREAT-20260315012936038667</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:36.614</td>
+          <td>THREAT-20260315012936614829</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>THREAT</td>
+          <td>Block traffic from the source IP address (if external).</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:36.685</td>
+          <td>THREAT-20260315012936685645</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>Isolate the device &#39;motion-sensor&#39; (10.0.0.5) from the network immediately to prevent further data contamination.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:37.270</td>
+          <td>THREAT-20260315012937270583</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>THREAT</td>
+          <td>Block the source IP address at the firewall.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:38.442</td>
+          <td>THREAT-20260315012938441993</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>THREAT</td>
+          <td>Quarantine the device based on source IP/MAC address (if available).</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:38.623</td>
+          <td>THREAT-20260315012938623453</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>THREAT</td>
+          <td>Immediately block traffic from the source IP address at the firewall.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:39.017</td>
+          <td>THREAT-20260315012939017381</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>THREAT</td>
+          <td>Block traffic from the unknown source IP address at the firewall.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:39.037</td>
+          <td>THREAT-20260315012939037603</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>Isolate the motion sensor (10.0.0.5) from the network immediately to prevent further data manipulation or potential lateral movement.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:39.755</td>
+          <td>THREAT-20260315012939755803</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>THREAT</td>
+          <td>Immediately block traffic from the unknown source IP address.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:40.553</td>
+          <td>THREAT-20260315012940553197</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>Isolate the device (10.0.0.5) from the network.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:41.292</td>
+          <td>THREAT-20260315012941292506</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>THREAT</td>
+          <td>Block the source IP address at the firewall.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:41.625</td>
+          <td>THREAT-20260315012941625798</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the camera (10.0.0.6) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:42.120</td>
+          <td>THREAT-20260315012942120960</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the camera-sensor (10.0.0.6) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:42.374</td>
+          <td>THREAT-20260315012942374512</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>THREAT</td>
+          <td>Quarantine the device immediately by blocking all network traffic from its IP address.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:42.700</td>
+          <td>THREAT-20260315012942700718</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>THREAT</td>
+          <td>Isolate the device (10.0.0.3) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:43.308</td>
+          <td>THREAT-20260315012943308263</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>THREAT</td>
+          <td>Immediately block the source IP address at the firewall.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:44.156</td>
+          <td>THREAT-20260315012944156799</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>Isolate the device 10.0.0.2 from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:44.762</td>
+          <td>THREAT-20260315012944762812</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>THREAT</td>
+          <td>Isolate the &#39;temp-sensor&#39; (10.0.0.3) from the network immediately by blocking its traffic at the firewall to prevent further data manipulation or potential lateral movement.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:45.136</td>
+          <td>THREAT-20260315012945136443</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>THREAT</td>
+          <td>Block traffic from the unknown source IP address at the firewall.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:45.318</td>
+          <td>THREAT-20260315012945318288</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the camera device (10.0.0.6) from the network.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:45.742</td>
+          <td>THREAT-20260315012945742331</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the camera sensor (10.0.0.6) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:46.904</td>
+          <td>THREAT-20260315012946904961</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the camera-sensor device (10.0.0.6) from the network.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:47.561</td>
+          <td>THREAT-20260315012947561756</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the camera (10.0.0.6) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:47.754</td>
+          <td>THREAT-20260315012947754569</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>THREAT</td>
+          <td>Isolate the &#39;temp-sensor&#39; (10.0.0.3) from the network to prevent further communication.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:47.905</td>
+          <td>THREAT-20260315012947905189</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the camera from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:47.965</td>
+          <td>THREAT-20260315012947965979</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>Isolate the device (10.0.0.5) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:49.469</td>
+          <td>THREAT-20260315012949469855</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>THREAT</td>
+          <td>Isolate the device (10.0.0.3) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:49.853</td>
+          <td>THREAT-20260315012949853581</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>THREAT</td>
+          <td>Immediately block the source IP address at the firewall.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:50.327</td>
+          <td>THREAT-20260315012950327802</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>Isolate motion sensor at IP address 10.0.0.5 from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:50.387</td>
+          <td>THREAT-20260315012950387965</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>Immediately isolate the device (10.0.0.2) from the network to prevent further data manipulation and potential lateral movement.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:50.611</td>
+          <td>THREAT-20260315012950611455</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>THREAT</td>
+          <td>Block traffic from the unknown source IP address at the firewall.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:51.913</td>
+          <td>THREAT-20260315012951913807</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>Isolate the device 10.0.0.5 from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:52.479</td>
+          <td>THREAT-20260315012952479459</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>THREAT</td>
+          <td>Isolate the &#39;sound-sensor&#39; (10.0.0.4) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:53.014</td>
+          <td>THREAT-20260315012953014610</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>Isolate the device (10.0.0.5) from the network immediately to prevent further propagation of potentially malicious data.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:53.034</td>
+          <td>THREAT-20260315012953034733</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>THREAT</td>
+          <td>Isolate sound-sensor (10.0.0.4) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:53.409</td>
+          <td>THREAT-20260315012953409345</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the camera (10.0.0.6) from the network.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:53.995</td>
+          <td>THREAT-20260315012953995462</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the device (10.0.0.6) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:55.137</td>
+          <td>THREAT-20260315012955137962</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>Isolate the light-sensor device (10.0.0.2) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:55.675</td>
+          <td>THREAT-20260315012955675125</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>THREAT</td>
+          <td>Isolate the device 10.0.0.4 from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:55.887</td>
+          <td>THREAT-20260315012955887367</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>THREAT</td>
+          <td>Immediately isolate the device 10.0.0.3 (temp-sensor) from the network to prevent further potential data manipulation or network flooding.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:56.241</td>
+          <td>THREAT-20260315012956241289</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>Isolate the light-sensor (10.0.0.2) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:56.423</td>
+          <td>THREAT-20260315012956423249</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>THREAT</td>
+          <td>Block traffic from the unknown source IP address.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:58.139</td>
+          <td>THREAT-20260315012958139823</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate camera-sensor (10.0.0.6) from the network.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:58.251</td>
+          <td>THREAT-20260315012958251088</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>THREAT</td>
+          <td>Isolate the sound-sensor device (10.0.0.4) from the network.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:58.423</td>
+          <td>THREAT-20260315012958423272</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>Isolate the device (10.0.0.5) from the network immediately to prevent further damage.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:58.796</td>
+          <td>THREAT-20260315012958796573</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>THREAT</td>
+          <td>Quarantine the device 10.0.0.3 from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:29:59.382</td>
+          <td>THREAT-20260315012959382316</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the camera-sensor (10.0.0.6) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:01.028</td>
+          <td>THREAT-20260315013001028659</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>Isolate the &#39;light-sensor&#39; (10.0.0.2) from the network immediately by blocking communication on the router to prevent further suspicious activity.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:01.524</td>
+          <td>THREAT-20260315013001524201</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>THREAT</td>
+          <td>Isolate the &#39;temp-sensor&#39; (10.0.0.3) from the network to prevent further data manipulation and potential lateral movement.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:01.816</td>
+          <td>THREAT-20260315013001816949</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the camera-sensor (10.0.0.6) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:01.888</td>
+          <td>THREAT-20260315013001888811</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>Isolate the &#39;light-sensor&#39; device (10.0.0.2) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:01.908</td>
+          <td>THREAT-20260315013001908493</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>THREAT</td>
+          <td>Isolate the &#39;temp-sensor&#39; (10.0.0.3) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:04.254</td>
+          <td>THREAT-20260315013004254678</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the camera (10.0.0.6) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:04.850</td>
+          <td>THREAT-20260315013004850514</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>Isolate the light-sensor device (10.0.0.2) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:05.397</td>
+          <td>THREAT-20260315013005397327</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the camera-sensor device from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:05.416</td>
+          <td>THREAT-20260315013005416849</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate &#39;camera-sensor&#39; from the network immediately to prevent further potential damage or lateral movement.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:05.437</td>
+          <td>THREAT-20260315013005437307</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>Isolate the &#39;light-sensor&#39; (10.0.0.2) from the network immediately by blocking its IP address in the firewall.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:07.104</td>
+          <td>THREAT-20260315013007104373</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:07.124</td>
+          <td>THREAT-20260315013007124883</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>THREAT</td>
+          <td>Block the source IP address at the firewall.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:07.906</td>
+          <td>THREAT-20260315013007906663</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>THREAT</td>
+          <td>Isolate the sound sensor (10.0.0.4) from the network.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:08.014</td>
+          <td>THREAT-20260315013008014123</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>THREAT</td>
+          <td>Block the source IP address at the firewall (if possible, otherwise, block unknown sources)</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:08.246</td>
+          <td>THREAT-20260315013008246738</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>THREAT</td>
+          <td>Isolate the device (10.0.0.3) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:09.520</td>
+          <td>THREAT-20260315013009520428</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>THREAT</td>
+          <td>Block the source IP address at the firewall.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:10.151</td>
+          <td>THREAT-20260315013010151949</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>THREAT</td>
+          <td>Block the source IP address at the firewall.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:10.422</td>
+          <td>THREAT-20260315013010422533</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>THREAT</td>
+          <td>Identify the source IP address if possible (check firewall and router logs).</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:11.119</td>
+          <td>THREAT-20260315013011119663</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the camera-sensor (10.0.0.6) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:11.160</td>
+          <td>THREAT-20260315013011160232</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>THREAT</td>
+          <td>Immediately isolate the &#39;temp-sensor&#39; (10.0.0.3) from the network.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:11.958</td>
+          <td>THREAT-20260315013011958863</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>THREAT</td>
+          <td>Immediately isolate the device from the network.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:12.839</td>
+          <td>THREAT-20260315013012839828</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>THREAT</td>
+          <td>Quarantine the device based on its MAC address or observed IP address.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:13.243</td>
+          <td>THREAT-20260315013013243281</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>THREAT</td>
+          <td>Isolate the device (10.0.0.3) from the network immediately to prevent further potential damage.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:13.748</td>
+          <td>THREAT-20260315013013748513</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>THREAT</td>
+          <td>Block traffic from the unknown source IP address at the firewall.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:14.022</td>
+          <td>THREAT-20260315013014022007</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>Isolate the &#39;motion-sensor&#39; (10.0.0.5) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:14.699</td>
+          <td>THREAT-20260315013014699092</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Quarantine the device (10.0.0.6) immediately by blocking its network access.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:15.708</td>
+          <td>THREAT-20260315013015708936</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>THREAT</td>
+          <td>Isolate the device (10.0.0.3) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:16.528</td>
+          <td>THREAT-20260315013016528500</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>Quarantine device 10.0.0.2 by blocking its network access.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:16.821</td>
+          <td>THREAT-20260315013016821137</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>Isolate the &#39;motion-sensor&#39; (10.0.0.5) from the network.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:17.629</td>
+          <td>THREAT-20260315013017629374</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>Quarantine the device (10.0.0.5) immediately by blocking all network traffic to/from it.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:18.299</td>
+          <td>THREAT-20260315013018299108</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>THREAT</td>
+          <td>Isolate the device &#39;sound-sensor&#39; (10.0.0.4) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:20.087</td>
+          <td>THREAT-20260315013020087226</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>THREAT</td>
+          <td>Identify the source IP address of the suspicious MQTT traffic.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:21.000</td>
+          <td>THREAT-20260315013021000744</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the camera (10.0.0.6) from the network.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:21.657</td>
+          <td>THREAT-20260315013021657061</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>THREAT</td>
+          <td>Isolate the compromised device (10.0.0.3) from the network immediately. Block all communication from this IP.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:23.131</td>
+          <td>THREAT-20260315013023131399</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>THREAT</td>
+          <td>Immediately block the source IP address.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:25.840</td>
+          <td>THREAT-20260315013025840023</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:26.463</td>
+          <td>THREAT-20260315013026463918</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>THREAT</td>
+          <td>Isolate the device by blocking its IP address at the firewall.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:26.524</td>
+          <td>THREAT-20260315013026524590</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>THREAT</td>
+          <td>Block traffic from the unknown source IP address.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:26.605</td>
+          <td>THREAT-20260315013026605607</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>THREAT</td>
+          <td>Isolate the sound sensor (10.0.0.4) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:26.666</td>
+          <td>THREAT-20260315013026666240</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>THREAT</td>
+          <td>Block the source IP address at the firewall to prevent further communication.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:27.171</td>
+          <td>THREAT-20260315013027171059</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>THREAT</td>
+          <td>Isolate sound-sensor (10.0.0.4) from the network immediately to prevent further data injection or potential lateral movement.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:28.778</td>
+          <td>THREAT-20260315013028778571</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>Isolate the device (10.0.0.5) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:28.890</td>
+          <td>THREAT-20260315013028890004</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the camera-sensor from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:28.991</td>
+          <td>THREAT-20260315013028991582</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>THREAT</td>
+          <td>Block traffic from the source IP address if it is external to the trusted IP range.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:29.345</td>
+          <td>THREAT-20260315013029345547</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>THREAT</td>
+          <td>Isolate the device sending the suspicious traffic. If possible, determine its IP address and/or client ID via network traffic analysis or MQTT broker logs.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:29.497</td>
+          <td>THREAT-20260315013029496983</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>THREAT</td>
+          <td>Block the source IP address at the firewall.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:30.340</td>
+          <td>THREAT-20260315013030340490</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:31.841</td>
+          <td>THREAT-20260315013031841252</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:33.041</td>
+          <td>THREAT-20260315013033041154</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>Isolate the device 10.0.0.2 from the network immediately to prevent further data corruption or potential lateral movement.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:33.355</td>
+          <td>THREAT-20260315013033355203</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>THREAT</td>
+          <td>Block traffic from the source IP address.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:33.577</td>
+          <td>THREAT-20260315013033577703</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>Quarantine the smart-plug (10.0.0.7) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:34.841</td>
+          <td>THREAT-20260315013034841581</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:35.042</td>
+          <td>THREAT-20260315013035042762</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>Quarantine the smart-plug device (10.0.0.7) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:35.215</td>
+          <td>THREAT-20260315013035215925</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>Isolate the motion sensor (10.0.0.5) from the network.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:36.342</td>
+          <td>THREAT-20260315013036342087</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:37.175</td>
+          <td>THREAT-20260315013037175466</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>Isolate the smart plug (10.0.0.7) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:37.539</td>
+          <td>THREAT-20260315013037539027</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>Isolate the smart-plug device from the network immediately to prevent further potential damage or spread of compromise.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:37.952</td>
+          <td>THREAT-20260315013037952252</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic1</td>
+          <td>THREAT</td>
+          <td>Block traffic from the source IP address at the firewall.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:40.820</td>
+          <td>THREAT-20260315013040820208</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>THREAT</td>
+          <td>Isolate the sound sensor (10.0.0.4) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:41.052</td>
+          <td>THREAT-20260315013041052715</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>THREAT</td>
+          <td>Isolate the sound-sensor from the network immediately to prevent further data contamination.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:41.123</td>
+          <td>THREAT-20260315013041123539</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>THREAT</td>
+          <td>Identify the source IP address of the MQTT packets.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:41.367</td>
+          <td>THREAT-20260315013041367503</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>THREAT</td>
+          <td>Isolate the device by blocking its communication through firewall rules.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:41.529</td>
+          <td>THREAT-20260315013041529365</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>Isolate the camera-sensor (10.0.0.6) from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:43.175</td>
+          <td>THREAT-20260315013043175267</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>unknown</td>
+          <td>flood/random/topic2</td>
+          <td>THREAT</td>
+          <td>Isolate the device from the network immediately.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:43.286</td>
+          <td>THREAT-20260315013043286602</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>Quarantine the &#39;light-sensor&#39; device (10.0.0.2) by blocking its network access.</td>
+        </tr>
+        
+        <tr>
+          <td>2026-03-15 01:30:43.892</td>
+          <td>THREAT-20260315013043892465</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+  
+  <div class="card">
+    <h2>Attack Types Observed</h2>
+    <table>
+      <thead>
+        <tr><th>Attack Type</th><th>Count</th></tr>
+      </thead>
+      <tbody>
+        
+        <tr><td>value_range</td><td>171</td></tr>
+        
+        <tr><td>firewall</td><td>126</td></tr>
+        
+        <tr><td>unknown_topic</td><td>55</td></tr>
+        
+      </tbody>
+    </table>
+  </div>
+  
+
+  <div class="footer">
+    IoT Network Security System &mdash; Summary Report &mdash; Generated 2026-03-15 01:30:45
+  </div>
+</div>
+</body>
+</html>
