@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Incident Reports Dashboard</title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f1117;
+      --panel: #161b22;
+      --panel-2: #0d1117;
+      --border: #30363d;
+      --border-soft: #21262d;
+      --text: #e1e4e8;
+      --muted: #8b949e;
+      --blue: #58a6ff;
+      --red: #da3633;
+      --green: #3fb950;
+      --orange: #f0883e;
+      --purple-a: #1a1e2e;
+      --purple-b: #2d1f3d;
+      --shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+    }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .header {
+      background: linear-gradient(135deg, var(--purple-a), var(--purple-b));
+      border-radius: 14px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid var(--red);
+      box-shadow: var(--shadow);
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .header h1 {
+      font-size: 1.7rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .header p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(218, 54, 51, 0.14);
+      color: #ffb3b0;
+      border: 1px solid rgba(218, 54, 51, 0.35);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .controls,
+    .summary,
+    .date-group {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .controls {
+      padding: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .controls-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr auto;
+      gap: 0.85rem;
+    }
+
+    .input-wrap,
+    .select-wrap {
+      position: relative;
+    }
+
+    .input-wrap i,
+    .select-wrap i {
+      position: absolute;
+      left: 0.95rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    input,
+    select {
+      width: 100%;
+      background: var(--panel-2);
+      color: var(--text);
+      border: 1px solid var(--border-soft);
+      border-radius: 10px;
+      padding: 0.8rem 0.9rem 0.8rem 2.6rem;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
+    }
+
+    button {
+      background: var(--blue);
+      color: #08111b;
+      border: none;
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.18s ease;
+      min-width: 110px;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.06);
+    }
+
+    .summary {
+      padding: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.9rem;
+    }
+
+    .stat {
+      background: var(--panel-2);
+      border: 1px solid var(--border-soft);
+      border-radius: 10px;
+      padding: 1rem;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.45rem;
+    }
+
+    .stat-value {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .status-note {
+      margin: 1rem 0 1.2rem;
+      padding: 0.9rem 1rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #11161d;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .date-group {
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .date-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      padding: 1rem 1.2rem;
+      border-bottom: 1px solid var(--border-soft);
+      background: linear-gradient(180deg, rgba(88,166,255,0.05), transparent);
+    }
+
+    .date-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--blue);
+    }
+
+    .date-count {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .reports-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    .report-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: var(--panel-2);
+      border: 1px solid var(--border-soft);
+      border-radius: 12px;
+      padding: 1rem;
+      transition: 0.18s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .report-card:hover {
+      border-color: var(--blue);
+      transform: translateY(-3px);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.32);
+    }
+
+    .report-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.8rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .report-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: rgba(218, 54, 51, 0.12);
+      color: var(--red);
+      border: 1px solid rgba(218, 54, 51, 0.25);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .report-open {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .report-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .report-type {
+      display: inline-block;
+      padding: 0.22rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(240, 136, 62, 0.14);
+      border: 1px solid rgba(240, 136, 62, 0.28);
+      color: #f7b27a;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.75rem;
+    }
+
+    .report-meta {
+      display: grid;
+      gap: 0.45rem;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .report-meta div {
+      display: flex;
+      gap: 0.55rem;
+      align-items: center;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      background: var(--panel);
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+    }
+
+    .footer {
+      text-align: center;
+      color: #484f58;
+      font-size: 0.8rem;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    @media (max-width: 900px) {
+      .controls-grid,
+      .summary-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body { padding: 1rem; }
+      .controls-grid,
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+      .header { padding: 1.3rem; }
+      .reports-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-top">
+        <div>
+          <h1><i class="fa-solid fa-shield-halved"></i> Incident Reports Dashboard</h1>
+          <p>Browse generated HTML reports inside <strong>reports_output</strong>.</p>
+        </div>
+        <div class="badge">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          Incident Reports
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="controls-grid">
+        <div class="input-wrap">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input id="searchInput" type="text" placeholder="Search by type, date, or filename..." />
+        </div>
+
+        <div class="select-wrap">
+          <i class="fa-solid fa-filter"></i>
+          <select id="typeFilter">
+            <option value="all">All types</option>
+          </select>
+        </div>
+
+        <div class="select-wrap">
+          <i class="fa-solid fa-arrow-down-wide-short"></i>
+          <select id="sortFilter">
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+          </select>
+        </div>
+
+        <button id="refreshBtn">
+          <i class="fa-solid fa-rotate-right"></i> Refresh
+        </button>
+      </div>
+    </div>
+
+    <div class="summary">
+      <div class="summary-grid">
+        <div class="stat">
+          <div class="stat-label">Total Reports</div>
+          <div class="stat-value" id="statTotal">0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Latest Date</div>
+          <div class="stat-value" id="statLatest">—</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Types</div>
+          <div class="stat-value" id="statTypes">0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Visible</div>
+          <div class="stat-value" id="statVisible">0</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="status-note" id="statusNote">
+      Loading reports...
+    </div>
+
+    <div id="reportsContainer"></div>
+
+    <div class="footer">
+      IoT Network Security System &mdash; Reports Dashboard
+    </div>
+  </div>
+
+  <script>
+    /*
+      Fallback manual list:
+      If automatic folder reading does not work in your browser/server setup,
+      put filenames here manually.
+    */
+    const MANUAL_REPORTS = [
+      // "incident_20260315_012858_value_range.html",
+      // "incident_20260315_021015_spike_detection.html"
+    ];
+
+    const REPORTS_DIR = "reports_output";
+    const MANIFEST_PATH = `${REPORTS_DIR}/reports_manifest.json`;
+
+    let allReports = [];
+
+    function prettifyType(type) {
+      return type
+        .replace(/[_-]+/g, " ")
+        .replace(/\b\w/g, c => c.toUpperCase());
+    }
+
+    function formatDateParts(dateObj) {
+      const yyyy = dateObj.getFullYear();
+      const mm = String(dateObj.getMonth() + 1).padStart(2, "0");
+      const dd = String(dateObj.getDate()).padStart(2, "0");
+      const hh = String(dateObj.getHours()).padStart(2, "0");
+      const mi = String(dateObj.getMinutes()).padStart(2, "0");
+      const ss = String(dateObj.getSeconds()).padStart(2, "0");
+
+      return {
+        dayKey: `${yyyy}-${mm}-${dd}`,
+        dayLabel: dateObj.toLocaleDateString(undefined, {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        }),
+        timeLabel: `${hh}:${mi}:${ss}`
+      };
+    }
+
+    function parseReportFilename(filename) {
+      const base = filename.split("/").pop();
+
+      const re = /^incident_(\d{8})_(\d{6})_(.+)\.html$/i;
+      const match = base.match(re);
+
+      if (!match) {
+        return {
+          filename: base,
+          href: `${REPORTS_DIR}/${base}`,
+          type: "unknown",
+          typeLabel: "Unknown",
+          timestamp: null,
+          dayKey: "Unknown Date",
+          dayLabel: "Unknown Date",
+          timeLabel: "Unknown Time",
+          rawLabel: base.replace(/\.html$/i, "")
+        };
+      }
+
+      const [, ymd, hms, rawType] = match;
+      const year = Number(ymd.slice(0, 4));
+      const month = Number(ymd.slice(4, 6)) - 1;
+      const day = Number(ymd.slice(6, 8));
+      const hour = Number(hms.slice(0, 2));
+      const minute = Number(hms.slice(2, 4));
+      const second = Number(hms.slice(4, 6));
+
+      const dt = new Date(year, month, day, hour, minute, second);
+      const parts = formatDateParts(dt);
+
+      return {
+        filename: base,
+        href: `${REPORTS_DIR}/${base}`,
+        type: rawType.toLowerCase(),
+        typeLabel: prettifyType(rawType),
+        timestamp: dt.getTime(),
+        dayKey: parts.dayKey,
+        dayLabel: parts.dayLabel,
+        timeLabel: parts.timeLabel,
+        rawLabel: `Incident - ${prettifyType(rawType)}`
+      };
+    }
+
+    async function tryLoadManifest() {
+      try {
+        const res = await fetch(MANIFEST_PATH, { cache: "no-store" });
+        if (!res.ok) return null;
+
+        const data = await res.json();
+
+        if (Array.isArray(data)) return data;
+        if (Array.isArray(data.files)) return data.files;
+
+        return null;
+      } catch {
+        return null;
+      }
+    }
+
+    async function tryLoadDirectoryListing() {
+      try {
+        const res = await fetch(`${REPORTS_DIR}/`, { cache: "no-store" });
+        if (!res.ok) return null;
+
+        const html = await res.text();
+        const doc = new DOMParser().parseFromString(html, "text/html");
+
+        const files = [...doc.querySelectorAll("a")]
+          .map(a => a.getAttribute("href") || "")
+          .map(href => href.split("/").pop())
+          .filter(name => /^incident_\d{8}_\d{6}_.+\.html$/i.test(name));
+
+        return files.length ? files : null;
+      } catch {
+        return null;
+      }
+    }
+
+    async function loadReports() {
+      let files = await tryLoadManifest();
+
+      if (files && files.length) {
+        setStatus(`Loaded <strong>${files.length}</strong> report(s) from <code>reports_manifest.json</code>.`);
+        return files;
+      }
+
+      files = await tryLoadDirectoryListing();
+
+      if (files && files.length) {
+        setStatus(`Loaded <strong>${files.length}</strong> report(s) from folder listing.`);
+        return files;
+      }
+
+      if (MANUAL_REPORTS.length) {
+        setStatus(`Loaded <strong>${MANUAL_REPORTS.length}</strong> report(s) from the manual list inside the dashboard file.`);
+        return MANUAL_REPORTS;
+      }
+
+      setStatus(
+        `Could not auto-discover reports. Either:
+        <br>1) create <code>reports_output/reports_manifest.json</code>,
+        <br>2) serve the folder with directory listing enabled,
+        <br>3) or fill <code>MANUAL_REPORTS</code> in this file.`
+      );
+      return [];
+    }
+
+    function setStatus(html) {
+      document.getElementById("statusNote").innerHTML = html;
+    }
+
+    function populateTypeFilter(reports) {
+      const select = document.getElementById("typeFilter");
+      const current = select.value;
+
+      const types = [...new Set(reports.map(r => r.type))].sort();
+
+      select.innerHTML = `<option value="all">All types</option>`;
+      for (const type of types) {
+        const option = document.createElement("option");
+        option.value = type;
+        option.textContent = prettifyType(type);
+        select.appendChild(option);
+      }
+
+      if ([...select.options].some(o => o.value === current)) {
+        select.value = current;
+      }
+    }
+
+    function updateSummary(totalReports, filteredReports) {
+      document.getElementById("statTotal").textContent = totalReports;
+
+      const valid = allReports
+        .filter(r => r.timestamp !== null)
+        .sort((a, b) => b.timestamp - a.timestamp);
+
+      document.getElementById("statLatest").textContent =
+        valid.length ? valid[0].dayKey : "—";
+
+      document.getElementById("statTypes").textContent =
+        new Set(allReports.map(r => r.type)).size;
+
+      document.getElementById("statVisible").textContent =
+        filteredReports.length;
+    }
+
+    function groupByDay(reports) {
+      const groups = new Map();
+
+      for (const report of reports) {
+        if (!groups.has(report.dayKey)) {
+          groups.set(report.dayKey, {
+            label: report.dayLabel,
+            items: []
+          });
+        }
+        groups.get(report.dayKey).items.push(report);
+      }
+
+      return groups;
+    }
+
+    function renderReports() {
+      const query = document.getElementById("searchInput").value.trim().toLowerCase();
+      const type = document.getElementById("typeFilter").value;
+      const sort = document.getElementById("sortFilter").value;
+
+      let reports = [...allReports];
+
+      if (query) {
+        reports = reports.filter(r =>
+          r.filename.toLowerCase().includes(query) ||
+          r.type.toLowerCase().includes(query) ||
+          r.dayKey.toLowerCase().includes(query) ||
+          r.dayLabel.toLowerCase().includes(query)
+        );
+      }
+
+      if (type !== "all") {
+        reports = reports.filter(r => r.type === type);
+      }
+
+      reports.sort((a, b) => {
+        const ta = a.timestamp ?? 0;
+        const tb = b.timestamp ?? 0;
+        return sort === "newest" ? tb - ta : ta - tb;
+      });
+
+      updateSummary(allReports.length, reports);
+
+      const container = document.getElementById("reportsContainer");
+      container.innerHTML = "";
+
+      if (!reports.length) {
+        container.innerHTML = `
+          <div class="empty">
+            <i class="fa-regular fa-folder-open" style="font-size: 1.5rem; margin-bottom: 0.6rem;"></i>
+            <div>No reports matched your filters.</div>
+          </div>
+        `;
+        return;
+      }
+
+      const grouped = groupByDay(reports);
+
+      for (const [dayKey, group] of grouped.entries()) {
+        const section = document.createElement("section");
+        section.className = "date-group";
+
+        const header = document.createElement("div");
+        header.className = "date-header";
+        header.innerHTML = `
+          <div class="date-title">
+            <i class="fa-regular fa-calendar"></i> ${group.label}
+          </div>
+          <div class="date-count">${group.items.length} report(s)</div>
+        `;
+        section.appendChild(header);
+
+        const grid = document.createElement("div");
+        grid.className = "reports-grid";
+
+        for (const report of group.items) {
+          const card = document.createElement("a");
+          card.className = "report-card";
+          card.href = report.href;
+          card.target = "_blank";
+          card.rel = "noopener noreferrer";
+
+          card.innerHTML = `
+            <div class="report-top">
+              <div class="report-icon">
+                <i class="fa-regular fa-file-lines"></i>
+              </div>
+              <div class="report-open">
+                <i class="fa-solid fa-up-right-from-square"></i>
+              </div>
+            </div>
+
+            <div class="report-title">${report.rawLabel}</div>
+            <div class="report-type">${report.typeLabel}</div>
+
+            <div class="report-meta">
+              <div><i class="fa-regular fa-clock"></i> ${report.timeLabel}</div>
+              <div><i class="fa-solid fa-tag"></i> ${report.type}</div>
+              <div><i class="fa-regular fa-file"></i> ${report.filename}</div>
+            </div>
+          `;
+
+          grid.appendChild(card);
+        }
+
+        section.appendChild(grid);
+        container.appendChild(section);
+      }
+    }
+
+    async function init() {
+      const filenames = await loadReports();
+      allReports = filenames.map(parseReportFilename);
+      populateTypeFilter(allReports);
+      renderReports();
+    }
+
+    document.getElementById("searchInput").addEventListener("input", renderReports);
+    document.getElementById("typeFilter").addEventListener("change", renderReports);
+    document.getElementById("sortFilter").addEventListener("change", renderReports);
+    document.getElementById("refreshBtn").addEventListener("click", init);
+
+    init();
+  </script>
+</body>
+</html>
