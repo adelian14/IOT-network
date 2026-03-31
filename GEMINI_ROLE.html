@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IoT IDS — Gemini's Role</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&family=Bricolage+Grotesque:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #f4f1eb;
+    --surface:   #ffffff;
+    --surface2:  #edeae2;
+    --border:    #d8d3c8;
+    --border2:   #c4bfb4;
+
+    --ink:       #1a1814;
+    --ink-soft:  #4a4742;
+    --ink-muted: #7a7570;
+    --ink-dim:   #aeaaa4;
+
+    --gem:       #2563eb;   /* Gemini blue */
+    --gem-light: #eff4ff;
+    --gem-mid:   #bfcffe;
+    --gem-dark:  #1e4fb0;
+
+    --safe:      #16a34a;
+    --safe-bg:   #f0fdf4;
+    --warn:      #d97706;
+    --warn-bg:   #fffbeb;
+    --threat:    #dc2626;
+    --threat-bg: #fef2f2;
+
+    --rule-color: #7c3aed;
+    --rule-bg:    #faf5ff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    color: #f4f1eb;
+    padding: 64px 40px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 80% at 50% -10%, rgba(37,99,235,0.35) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .header-kicker {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gem-mid);
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(30px, 5vw, 54px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: #f4f1eb;
+    margin-bottom: 14px;
+    letter-spacing: -0.5px;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--gem-mid);
+  }
+  .header-sub {
+    color: #aeaaa4;
+    font-size: 15px;
+    max-width: 500px;
+    margin: 0 auto;
+    font-weight: 400;
+  }
+
+  /* ── LAYOUT ── */
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 56px 24px 100px;
+  }
+
+  section {
+    margin-bottom: 72px;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: up 0.5s ease forwards;
+  }
+  section:nth-child(1){ animation-delay:0.05s }
+  section:nth-child(2){ animation-delay:0.10s }
+  section:nth-child(3){ animation-delay:0.15s }
+  section:nth-child(4){ animation-delay:0.20s }
+  section:nth-child(5){ animation-delay:0.25s }
+  section:nth-child(6){ animation-delay:0.30s }
+
+  @keyframes up { to { opacity:1; transform:translateY(0) } }
+
+  /* ── SECTION HEADING ── */
+  .sec-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(22px, 3.5vw, 34px);
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 16px;
+    letter-spacing: -0.3px;
+  }
+  h3 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 32px 0 12px;
+  }
+
+  p {
+    color: var(--ink-soft);
+    margin-bottom: 12px;
+    font-size: 15px;
+  }
+  p strong { color: var(--ink); }
+  p em { font-style: italic; color: var(--ink-soft); }
+
+  code {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.83em;
+    background: var(--surface2);
+    color: var(--gem-dark);
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+  }
+
+  /* ── HORIZONTAL PIPELINE ── */
+  .flow-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 32px 0;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+  .flow-node {
+    flex: 0 0 auto;
+    background: var(--surface);
+    border: 1.5px solid var(--border2);
+    border-radius: 10px;
+    padding: 14px 18px;
+    text-align: center;
+    min-width: 110px;
+    max-width: 130px;
+    position: relative;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .flow-node:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+  .flow-node .fn-icon { font-size: 22px; display: block; margin-bottom: 6px; }
+  .flow-node .fn-name {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .flow-node .fn-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-dim);
+    margin-top: 4px;
+  }
+  .flow-node.fn-gemini {
+    border-color: var(--gem);
+    background: var(--gem-light);
+    box-shadow: 0 0 0 4px rgba(37,99,235,0.08);
+    transform: scale(1.06);
+    z-index: 1;
+  }
+  .flow-node.fn-gemini .fn-name { color: var(--gem-dark); }
+  .flow-node.fn-dimmed { opacity: 0.45; }
+
+  .flow-arrow {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 6px;
+    gap: 3px;
+  }
+  .flow-arrow .arr-line {
+    width: 28px;
+    height: 1.5px;
+    background: var(--border2);
+  }
+  .flow-arrow .arr-tip {
+    font-size: 10px;
+    color: var(--border2);
+    margin-top: -2px;
+  }
+  .flow-arrow .arr-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--ink-dim);
+    white-space: nowrap;
+    margin-top: 4px;
+  }
+
+  /* ── TRIGGER CONDITION ── */
+  .trigger-box {
+    background: var(--warn-bg);
+    border: 1.5px solid var(--warn);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 24px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .trigger-icon { font-size: 28px; flex-shrink: 0; }
+  .trigger-formula {
+    font-family: 'DM Mono', monospace;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--warn);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .trigger-note { font-size: 13px; color: var(--ink-soft); margin: 0; }
+
+  /* ── CONTEXT GRID ── */
+  .ctx-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .ctx-card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 16px;
+    text-align: center;
+  }
+  .ctx-card .ctx-icon { font-size: 24px; display: block; margin-bottom: 8px; }
+  .ctx-card .ctx-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--gem);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .ctx-card p { font-size: 12px; color: var(--ink-muted); margin: 0; text-align: center; }
+
+  /* ── PROMPT DISPLAY ── */
+  .prompt-wrap {
+    background: var(--surface);
+    border: 1.5px solid var(--border2);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px 0;
+  }
+  .prompt-header {
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-muted);
+  }
+  .dot { width: 9px; height: 9px; border-radius: 50%; }
+  .prompt-body {
+    padding: 22px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    line-height: 1.9;
+    color: var(--ink-soft);
+    white-space: pre-wrap;
+    overflow-x: auto;
+  }
+  .p-section { color: var(--gem-dark); font-weight: 500; }
+  .p-field   { color: var(--rule-color); }
+  .p-value   { color: var(--safe); }
+  .p-format  { color: var(--threat); }
+  .p-history { color: var(--ink-dim); }
+
+  /* ── JSON RESPONSE ── */
+  .json-wrap {
+    background: var(--surface);
+    border: 1.5px solid var(--gem-mid);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px 0;
+  }
+  .json-header {
+    background: var(--gem-light);
+    border-bottom: 1px solid var(--gem-mid);
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--gem-dark);
+    font-weight: 500;
+  }
+  .json-body {
+    padding: 22px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12.5px;
+    line-height: 1.9;
+    color: var(--ink-soft);
+    white-space: pre-wrap;
+  }
+  .j-key  { color: var(--gem); }
+  .j-str  { color: var(--safe); }
+  .j-bool { color: var(--threat); }
+  .j-num  { color: var(--warn); }
+
+  /* ── IMPACT CARDS (what Gemini decides) ── */
+  .impact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 20px 0;
+  }
+  .impact-card {
+    border-radius: 10px;
+    padding: 18px 20px;
+    border: 1.5px solid;
+  }
+  .impact-card .ic-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .impact-card .ic-title {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .impact-card p { font-size: 13px; color: var(--ink-soft); margin: 0; }
+  .ic-clear { border-color: var(--safe); background: var(--safe-bg); }
+  .ic-clear .ic-label, .ic-clear .ic-title { color: var(--safe); }
+  .ic-confirm { border-color: var(--threat); background: var(--threat-bg); }
+  .ic-confirm .ic-label, .ic-confirm .ic-title { color: var(--threat); }
+
+  /* ── VERDICTS ── */
+  .verdict-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .vc {
+    border-radius: 10px;
+    padding: 18px;
+    text-align: center;
+    border: 1.5px solid;
+  }
+  .vc .vc-score {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .vc .vc-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .vc p { font-size: 12px; color: var(--ink-muted); margin: 0; }
+  .vc-threat { border-color: var(--threat); background: var(--threat-bg); }
+  .vc-threat .vc-score, .vc-threat .vc-name { color: var(--threat); }
+  .vc-susp   { border-color: var(--warn);   background: var(--warn-bg);   }
+  .vc-susp   .vc-score, .vc-susp   .vc-name { color: var(--warn); }
+  .vc-safe   { border-color: var(--safe);   background: var(--safe-bg);   }
+  .vc-safe   .vc-score, .vc-safe   .vc-name { color: var(--safe); }
+
+  /* ── CALLOUT ── */
+  .callout {
+    border-left: 3px solid var(--gem);
+    background: var(--gem-light);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .callout.warn { border-color: var(--warn); background: var(--warn-bg); }
+  .callout.success { border-color: var(--safe); background: var(--safe-bg); }
+
+  /* ── SEVERITY TABLE ── */
+  .sev-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 13px;
+  }
+  .sev-table thead tr { background: var(--surface2); border-bottom: 2px solid var(--border); }
+  .sev-table th {
+    padding: 10px 14px;
+    text-align: left;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    font-weight: 500;
+  }
+  .sev-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+  .sev-table tr:last-child td { border-bottom: none; }
+  .sev-table td:first-child { font-family:'DM Mono',monospace; color:var(--gem-dark); font-size:12px; }
+  .sev-table tr:hover td { background: rgba(0,0,0,0.02); }
+
+  /* ── WHAT IF GEMINI FAILS ── */
+  .fallback-box {
+    background: var(--surface2);
+    border: 1.5px dashed var(--border2);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .fallback-box .fb-icon { font-size: 26px; flex-shrink: 0; }
+  .fallback-box .fb-title {
+    font-weight: 700;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 4px;
+    font-size: 14px;
+  }
+  .fallback-box p { font-size: 13px; color: var(--ink-soft); margin: 0; }
+
+  /* ── AFTER-THREAT LIST ── */
+  .step-list {
+    list-style: none;
+    margin: 16px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .step-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+  .step-list li .sl-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-dim);
+    min-width: 22px;
+    padding-top: 1px;
+  }
+  .step-list li strong { color: var(--ink); }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border), transparent);
+    margin: 48px 0;
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 32px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-dim);
+  }
+
+  @media (max-width: 600px) {
+    .ctx-grid    { grid-template-columns: 1fr; }
+    .impact-grid { grid-template-columns: 1fr; }
+    .verdict-row { grid-template-columns: 1fr; }
+    .flow-node   { min-width: 90px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-kicker">IoT IDS · Overview · Gemini's Role</div>
+  <h1>Where <em>Gemini</em> Fits<br>in the Security Pipeline</h1>
+  <p class="header-sub">A simplified map of the packet flow — focused on what the model actually does, when it gets called, and what it decides.</p>
+</header>
+
+<main>
+
+<!-- ─────────────────────────────── THE BIG PICTURE ── -->
+<section>
+  <div class="sec-label">Overview</div>
+  <h2>The Full Pipeline at a Glance</h2>
+  <p>Every MQTT message published by an IoT device passes through four stages before a final verdict is reached. Gemini sits in the middle — it's only pulled in when the rule engine is <strong>uncertain</strong>.</p>
+
+  <div class="flow-row">
+    <div class="flow-node fn-dimmed">
+      <span class="fn-icon">🔥</span>
+      <div class="fn-name">Firewall</div>
+      <div class="fn-sub">IP checks,<br>rate limits</div>
+    </div>
+    <div class="flow-arrow">
+      <div class="arr-line"></div>
+      <div class="arr-tip">▶</div>
+    </div>
+
+    <div class="flow-node fn-dimmed">
+      <span class="fn-icon">📋</span>
+      <div class="fn-name">Rule Engine</div>
+      <div class="fn-sub">6 pattern<br>checks</div>
+    </div>
+    <div class="flow-arrow">
+      <div class="arr-line"></div>
+      <div class="arr-tip">▶</div>
+      <div class="arr-label">if uncertain</div>
+    </div>
+
+    <div class="flow-node fn-gemini">
+      <span class="fn-icon">🤖</span>
+      <div class="fn-name">Gemini LLM</div>
+      <div class="fn-sub">threat<br>assessment</div>
+    </div>
+    <div class="flow-arrow">
+      <div class="arr-line"></div>
+      <div class="arr-tip">▶</div>
+    </div>
+
+    <div class="flow-node fn-dimmed">
+      <span class="fn-icon">⚖️</span>
+      <div class="fn-name">Decision<br>Engine</div>
+      <div class="fn-sub">final<br>verdict</div>
+    </div>
+    <div class="flow-arrow">
+      <div class="arr-line"></div>
+      <div class="arr-tip">▶</div>
+    </div>
+
+    <div class="flow-node fn-dimmed">
+      <span class="fn-icon">🚨</span>
+      <div class="fn-name">Action</div>
+      <div class="fn-sub">block / alert<br>/ report</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Gemini is not always called.</strong> If the rule engine is already highly confident (e.g. a sensor reports a physically impossible value), the system handles it directly without touching the LLM. Gemini is reserved for genuinely ambiguous situations.
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─────────────────────────────── WHEN GEMINI IS CALLED ── -->
+<section>
+  <div class="sec-label">Trigger Condition</div>
+  <h2>When Does Gemini Get Called?</h2>
+  <p>The rule engine outputs two numbers for each packet: a <strong>severity</strong> (how bad) and a <strong>confidence</strong> (how sure the rules are). Gemini is only summoned when both conditions are true simultaneously:</p>
+
+  <div class="trigger-box">
+    <div class="trigger-icon">⚡</div>
+    <div>
+      <span class="trigger-formula">severity ≥ 5  AND  confidence ≤ 0.6</span>
+      <p class="trigger-note">Translation: <em>"Something looks bad, but we're not sure enough to act on our own."</em> High-confidence detections skip Gemini entirely.</p>
+    </div>
+  </div>
+
+  <h3>Quick Examples</h3>
+  <table class="sev-table">
+    <thead>
+      <tr><th>Situation</th><th>Severity</th><th>Confidence</th><th>Gemini Called?</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Temperature sensor reports 9,999 °C</td>
+        <td>9</td>
+        <td>0.85</td>
+        <td>✅ No — rule engine is confident; skipped</td>
+      </tr>
+      <tr>
+        <td>Message arrives on an unknown topic</td>
+        <td>5</td>
+        <td>0.50</td>
+        <td>🤖 Yes — uncertain enough to need LLM</td>
+      </tr>
+      <tr>
+        <td>SQL string in a light sensor payload</td>
+        <td>7</td>
+        <td>0.60</td>
+        <td>🤖 Yes — pattern matched but needs context</td>
+      </tr>
+      <tr>
+        <td>Normal reading, all rules pass</td>
+        <td>0</td>
+        <td>1.0</td>
+        <td>✅ No — safe, nothing to investigate</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─────────────────────────────── WHAT GEMINI RECEIVES ── -->
+<section>
+  <div class="sec-label">Input</div>
+  <h2>What Gemini Receives</h2>
+  <p>Three pieces of context are bundled into every Gemini prompt — the current packet, the rule results, and a short history of the device's recent messages:</p>
+
+  <div class="ctx-grid">
+    <div class="ctx-card">
+      <span class="ctx-icon">📦</span>
+      <span class="ctx-name">The Packet</span>
+      <p>Topic, payload, device ID, source IP, and timestamp of the flagged message.</p>
+    </div>
+    <div class="ctx-card">
+      <span class="ctx-icon">📋</span>
+      <span class="ctx-name">Rule Results</span>
+      <p>Which rules fired, with their severity and confidence scores, and a plain-language detail string.</p>
+    </div>
+    <div class="ctx-card">
+      <span class="ctx-icon">📜</span>
+      <span class="ctx-name">Device History</span>
+      <p>The last 10 messages from this same device — so Gemini can spot sudden behavioral changes.</p>
+    </div>
+  </div>
+
+  <p>The prompt also describes the full network context — 10 sensors, 10 actuators, a central CPU, and the expected MQTT topic structure — so Gemini can reason about whether behavior is normal for this type of device.</p>
+
+  <div class="prompt-wrap">
+    <div class="prompt-header">
+      <div class="dot" style="background:#e74c3c"></div>
+      <div class="dot" style="background:#f39c12"></div>
+      <div class="dot" style="background:#27ae60"></div>
+      <span>Gemini Prompt Structure (simplified)</span>
+    </div>
+    <div class="prompt-body"><span class="p-section">You are an IoT network security analyst for a smart-home network.</span>
+
+<span class="p-section">## Flagged Packet</span>
+<span class="p-field">- Topic:</span>     <span class="p-value">home/light/data</span>
+<span class="p-field">- Payload:</span>   <span class="p-value">SELECT * FROM users</span>
+<span class="p-field">- Device:</span>    <span class="p-value">light-sensor  (10.0.0.2)</span>
+<span class="p-field">- Time:</span>      <span class="p-value">2026-03-31T14:35:12</span>
+
+<span class="p-section">## Rules That Triggered</span>
+  <span class="p-field">payload_integrity:</span> SQL injection pattern found
+  <span class="p-field">(severity=7, confidence=0.6)</span>
+
+<span class="p-history">## Recent History from this Device
+  [14:35:10]  home/light/data  →  1023
+  [14:35:11]  home/light/data  →  1024
+  [14:35:12]  home/light/data  →  SELECT * FROM users   ← flagged</span>
+
+<span class="p-section">## Network Context</span>
+  10 sensors, 10 actuators, central CPU at 10.0.0.100
+  Expected light sensor payloads: numeric lux values
+
+<span class="p-section">## Required Response</span>
+<span class="p-format">Respond ONLY with valid JSON:
+{
+  "threat_level":        "none|low|medium|high|critical",
+  "threat_type":         "spoofing|injection|dos|unauthorized...",
+  "explanation":         "your full reasoning",
+  "is_threat":           true or false,
+  "recommended_actions": ["action1", "action2"],
+  "confidence":          0.0 to 1.0
+}</span></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─────────────────────────────── WHAT GEMINI RETURNS ── -->
+<section>
+  <div class="sec-label">Output</div>
+  <h2>What Gemini Returns</h2>
+  <p>Gemini responds with plain JSON — no markdown, no prose preamble. The IDS parses this directly. Here's what a real response looks like for the SQL injection example:</p>
+
+  <div class="json-wrap">
+    <div class="json-header">🤖 Gemini Response — SQL Injection Case</div>
+    <div class="json-body">{
+  <span class="j-key">"threat_level"</span>:  <span class="j-str">"high"</span>,
+  <span class="j-key">"threat_type"</span>:   <span class="j-str">"injection"</span>,
+  <span class="j-key">"is_threat"</span>:     <span class="j-bool">true</span>,
+  <span class="j-key">"confidence"</span>:    <span class="j-num">0.92</span>,
+  <span class="j-key">"explanation"</span>:   <span class="j-str">"The payload 'SELECT * FROM users' is completely out of
+    place for a light sensor, which should only publish numeric
+    lux values (e.g. 1023). The device history confirms normal
+    readings just before this message — this was almost certainly
+    crafted by an attacker probing for SQL injection."</span>,
+  <span class="j-key">"recommended_actions"</span>: [<span class="j-str">"block_device"</span>, <span class="j-str">"increase_monitoring"</span>]
+}</div>
+  </div>
+
+  <p>Notice the <code>explanation</code> field — Gemini uses the <strong>device history</strong> to contrast the anomalous payload against the normal pattern of numeric lux readings. This is contextual reasoning that the rule engine alone cannot perform.</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─────────────────────────────── WHAT GEMINI DECIDES ── -->
+<section>
+  <div class="sec-label">Decision Power</div>
+  <h2>What Gemini Actually Controls</h2>
+  <p>Gemini's response feeds directly into the Decision Engine and influences three things:</p>
+
+  <div class="impact-grid">
+    <div class="impact-card ic-confirm">
+      <div class="ic-label">If is_threat = true</div>
+      <div class="ic-title">Severity is raised</div>
+      <p>The final severity is bumped up to match Gemini's threat level — <em>critical → 10, high → 8, medium → 6, low → 3</em>. Confidence is updated to whichever is higher.</p>
+    </div>
+    <div class="impact-card ic-clear">
+      <div class="ic-label">If is_threat = false</div>
+      <div class="ic-title">Severity drops by 3</div>
+      <p>Gemini can <em>clear</em> a threat. A packet that triggered rules with severity 7 might drop to 4 (SUSPICIOUS) or even lower if Gemini sees a benign explanation.</p>
+    </div>
+  </div>
+
+  <div class="impact-grid" style="margin-top:0;">
+    <div class="impact-card" style="border-color:var(--gem); background:var(--gem-light); grid-column:1/-1;">
+      <div class="ic-label" style="color:var(--gem);">recommended_actions</div>
+      <div class="ic-title" style="color:var(--gem-dark);">Gemini chooses the corrective action</div>
+      <p><code>recommended_actions</code> from Gemini's JSON is used <strong>directly</strong> as the self-healing command sent to the CPU via <code>security/action</code>. The model effectively decides what happens to the offending device — block it, increase monitoring, isolate it, etc.</p>
+    </div>
+  </div>
+
+  <h3>Final Verdict Thresholds</h3>
+  <p>After Gemini's adjustments, the Decision Engine maps the final severity number to one of three outcomes:</p>
+
+  <div class="verdict-row">
+    <div class="vc vc-threat">
+      <span class="vc-score">≥ 7</span>
+      <span class="vc-name">THREAT</span>
+      <p>Self-heal, publish alert, generate HTML incident report.</p>
+    </div>
+    <div class="vc vc-susp">
+      <span class="vc-score">4 – 6</span>
+      <span class="vc-name">SUSPICIOUS</span>
+      <p>Logged and monitored. No immediate action.</p>
+    </div>
+    <div class="vc vc-safe">
+      <span class="vc-score">&lt; 4</span>
+      <span class="vc-name">SAFE</span>
+      <p>No action taken.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─────────────────────────────── WHAT HAPPENS AFTER ── -->
+<section>
+  <div class="sec-label">After a THREAT Verdict</div>
+  <h2>What Happens When Gemini Confirms a Threat</h2>
+  <p>When the final verdict is THREAT, four things fire in sequence — and Gemini's output shapes all of them:</p>
+
+  <ul class="step-list">
+    <li>
+      <div class="sl-num">01</div>
+      <div><strong>Incident record created.</strong> A permanent <code>ThreatEvent</code> is logged with the full packet, rule results, Gemini's JSON, and the final verdict.</div>
+    </li>
+    <li>
+      <div class="sl-num">02</div>
+      <div><strong>Self-healing action published to <code>security/action</code>.</strong> Built from Gemini's <code>recommended_actions</code> — e.g. <code>{ action: "block_device", device: "light-sensor", duration: 300 }</code> — sent to the CPU to execute.</div>
+    </li>
+    <li>
+      <div class="sl-num">03</div>
+      <div><strong>Alert published to <code>security/alert</code>.</strong> A short alert message is broadcast on the network.</div>
+    </li>
+    <li>
+      <div class="sl-num">04</div>
+      <div><strong>HTML incident report saved.</strong> A human-readable report is written to <code>reports_output/</code>, containing Gemini's full explanation paragraph verbatim alongside all packet and rule details.</div>
+    </li>
+  </ul>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─────────────────────────────── FALLBACK ── -->
+<section>
+  <div class="sec-label">Resilience</div>
+  <h2>What If Gemini Is Unavailable?</h2>
+
+  <div class="fallback-box">
+    <div class="fb-icon">🔌</div>
+    <div>
+      <span class="fb-title">Graceful fallback — the system never stalls.</span>
+      <p>If the Gemini API key is missing or the call fails, <code>_fallback_analysis()</code> generates an identical JSON structure mechanically from the rule engine results. Confidence is capped at 0.6 and the source is marked <code>"fallback"</code> so the report makes it clear LLM analysis was unavailable. Every downstream stage proceeds exactly the same.</p>
+    </div>
+  </div>
+
+  <div class="callout success">
+    <strong>Bottom line:</strong> Gemini is a powerful but optional intelligence layer. The system is fully functional without it — it just loses the contextual reasoning, behavioral history analysis, and natural-language explanations that the LLM uniquely provides.
+  </div>
+</section>
+
+</main>
+
+<footer>
+  IoT IDS · Gemini Role Overview · Simplified Reference
+</footer>
+
+</body>
+</html>
