@@ -96,12 +96,19 @@ This is a smart-home IoT network with:
 Respond ONLY with valid JSON (no markdown fences, no extra text):
 {{
     "threat_level": "none|low|medium|high|critical",
-    "threat_type": "short category name (e.g. spoofing, injection, dos, unauthorized, data_manipulation, reconnaissance, none)",
+    "threat_type": "none|flooding|malformed|spoofing|novel",
     "explanation": "detailed explanation of the threat and your reasoning",
     "is_threat": true or false,
     "recommended_actions": ["action1", "action2"],
     "confidence": 0.0 to 1.0
 }}
+## Threat Type Classification Rules
+- Use "none" when no threat is detected (is_threat must be false)
+- Use "flooding" for high-frequency packet storms, DoS, or connection exhaustion attacks
+- Use "malformed" for structurally invalid topics, malformed payloads, or protocol violations
+- Use "spoofing" for IP/client ID impersonation, identity forgery, or unauthorized device masquerading
+- Use "novel" for any confirmed or suspected threat that does not clearly fit the above three categories
+- threat_type must be exactly one of: none, flooding, malformed, spoofing, novel — no other values are permitted
 """
 
     async def analyze(self, packet_dict, rules_triggered, device_history=None):
