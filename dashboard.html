@@ -269,6 +269,18 @@
       flex-shrink: 0;
     }
 
+    .report-icon.summary {
+      background: rgba(88, 166, 255, 0.12);
+      color: var(--blue);
+      border-color: rgba(88, 166, 255, 0.25);
+    }
+
+    .report-icon.metrics {
+      background: rgba(63, 185, 80, 0.12);
+      color: var(--green);
+      border-color: rgba(63, 185, 80, 0.25);
+    }
+
     .report-open {
       color: var(--muted);
       font-size: 0.9rem;
@@ -294,6 +306,18 @@
       text-transform: uppercase;
       letter-spacing: 0.04em;
       margin-bottom: 0.75rem;
+    }
+
+    .report-type.summary {
+      background: rgba(88, 166, 255, 0.14);
+      border-color: rgba(88, 166, 255, 0.28);
+      color: #79c0ff;
+    }
+
+    .report-type.metrics {
+      background: rgba(63, 185, 80, 0.14);
+      border-color: rgba(63, 185, 80, 0.28);
+      color: #7ce38b;
     }
 
     .report-meta {
@@ -465,13 +489,35 @@
     function parseReportFilename(filename) {
       const base = filename.split("/").pop();
 
-      const re = /^incident_(\d{8})_(\d{6})_(.+)\.html$/i;
-      const match = base.match(re);
+      const incidentRe = /^incident_(\d{8})_(\d{6})_(.+)\.html$/i;
+      const summaryRe  = /^summary_(\d{8})_(\d{6})\.html$/i;
+      const metricsRe  = /^metrics_(\d{8})_(\d{6})\.html$/i;
 
-      if (!match) {
+      let ymd, hms, kind, rawType, rawLabel;
+
+      const iMatch = base.match(incidentRe);
+      const sMatch = base.match(summaryRe);
+      const mMatch = base.match(metricsRe);
+
+      if (iMatch) {
+        [, ymd, hms, rawType] = iMatch;
+        kind     = "incident";
+        rawLabel = `Incident — ${prettifyType(rawType)}`;
+      } else if (sMatch) {
+        [, ymd, hms] = sMatch;
+        rawType  = "summary";
+        kind     = "summary";
+        rawLabel = "Session Summary";
+      } else if (mMatch) {
+        [, ymd, hms] = mMatch;
+        rawType  = "metrics";
+        kind     = "metrics";
+        rawLabel = "Performance Metrics";
+      } else {
         return {
           filename: base,
           href: `${REPORTS_DIR}/${base}`,
+          kind: "unknown",
           type: "unknown",
           typeLabel: "Unknown",
           timestamp: null,
@@ -482,27 +528,27 @@
         };
       }
 
-      const [, ymd, hms, rawType] = match;
-      const year = Number(ymd.slice(0, 4));
-      const month = Number(ymd.slice(4, 6)) - 1;
-      const day = Number(ymd.slice(6, 8));
-      const hour = Number(hms.slice(0, 2));
+      const year   = Number(ymd.slice(0, 4));
+      const month  = Number(ymd.slice(4, 6)) - 1;
+      const day    = Number(ymd.slice(6, 8));
+      const hour   = Number(hms.slice(0, 2));
       const minute = Number(hms.slice(2, 4));
       const second = Number(hms.slice(4, 6));
 
-      const dt = new Date(year, month, day, hour, minute, second);
+      const dt    = new Date(year, month, day, hour, minute, second);
       const parts = formatDateParts(dt);
 
       return {
-        filename: base,
-        href: `${REPORTS_DIR}/${base}`,
-        type: rawType.toLowerCase(),
+        filename:  base,
+        href:      `${REPORTS_DIR}/${base}`,
+        kind,
+        type:      rawType.toLowerCase(),
         typeLabel: prettifyType(rawType),
         timestamp: dt.getTime(),
-        dayKey: parts.dayKey,
-        dayLabel: parts.dayLabel,
+        dayKey:    parts.dayKey,
+        dayLabel:  parts.dayLabel,
         timeLabel: parts.timeLabel,
-        rawLabel: `Incident - ${prettifyType(rawType)}`
+        rawLabel
       };
     }
 
@@ -533,7 +579,7 @@
         const files = [...doc.querySelectorAll("a")]
           .map(a => a.getAttribute("href") || "")
           .map(href => href.split("/").pop())
-          .filter(name => /^incident_\d{8}_\d{6}_.+\.html$/i.test(name));
+          .filter(name => /^(incident|summary|metrics)_\d{8}_\d{6}.*\.html$/i.test(name));
 
         return files.length ? files : null;
       } catch {
@@ -693,10 +739,18 @@
           card.target = "_blank";
           card.rel = "noopener noreferrer";
 
+          const iconMap = {
+            incident: "fa-regular fa-file-lines",
+            summary:  "fa-solid fa-clipboard-list",
+            metrics:  "fa-solid fa-chart-bar",
+            unknown:  "fa-regular fa-file"
+          };
+          const cardIcon = iconMap[report.kind] || iconMap.unknown;
+
           card.innerHTML = `
             <div class="report-top">
-              <div class="report-icon">
-                <i class="fa-regular fa-file-lines"></i>
+              <div class="report-icon ${report.kind}">
+                <i class="${cardIcon}"></i>
               </div>
               <div class="report-open">
                 <i class="fa-solid fa-up-right-from-square"></i>
@@ -704,7 +758,7 @@
             </div>
 
             <div class="report-title">${report.rawLabel}</div>
-            <div class="report-type">${report.typeLabel}</div>
+            <div class="report-type ${report.kind}">${report.typeLabel}</div>
 
             <div class="report-meta">
               <div><i class="fa-regular fa-clock"></i> ${report.timeLabel}</div>
