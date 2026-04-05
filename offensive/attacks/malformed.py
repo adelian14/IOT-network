@@ -8,6 +8,7 @@ IDS should detect: payload_integrity violations, suspicious_patterns
 import time
 import random
 import paho.mqtt.client as mqtt
+from offensive.ground_truth import tag as gt_tag
 
 TARGET_TOPICS = [
     "home/thermo/data",
@@ -52,6 +53,7 @@ def run(broker_ip, duration=20, interval=1.5):
         topic = random.choice(TARGET_TOPICS)
         payload = random.choice(MALFORMED_PAYLOADS)
         client.publish(topic, payload)
+        gt_tag(client, "malformed", topic, repr(payload[:100]))
         preview = repr(payload[:60])
         print(f"  -> {topic}: {preview}")
         count += 1

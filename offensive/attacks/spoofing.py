@@ -8,6 +8,7 @@ IDS should detect: value_range violation
 import time
 import random
 import paho.mqtt.client as mqtt
+from offensive.ground_truth import tag as gt_tag
 
 SPOOFED_DATA = {
     "home/thermo/data": ["999", "-200", "500.5", "9999"],
@@ -37,6 +38,7 @@ def run(broker_ip, duration=30, interval=1.0):
         topic = random.choice(topics)
         value = random.choice(SPOOFED_DATA[topic])
         client.publish(topic, value)
+        gt_tag(client, "spoofing", topic, value)
         print(f"  -> {topic}: {value}")
         count += 1
         time.sleep(interval)

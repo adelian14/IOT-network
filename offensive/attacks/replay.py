@@ -7,6 +7,7 @@ IDS should detect: frequency_anomaly, duplicate messages
 
 import time
 import paho.mqtt.client as mqtt
+from offensive.ground_truth import tag as gt_tag
 
 CAPTURE_TOPICS = [
     "home/thermo/data",
@@ -56,6 +57,7 @@ def run(broker_ip, capture_time=10, replay_time=20, replay_rate=5.0):
     while time.time() < end_time:
         topic, payload = captured[idx % len(captured)]
         replay_client.publish(topic, payload)
+        gt_tag(replay_client, "replay", topic, payload)
         count += 1
         idx += 1
         time.sleep(interval)

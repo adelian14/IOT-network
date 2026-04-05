@@ -56,7 +56,7 @@ class IDSMonitor:
     def _on_message(self, client, userdata, message):
         topic = message.topic
 
-        if topic.startswith("security/"):
+        if topic.startswith("security/") or topic.startswith("metrics/"):
             return
 
         payload = message.payload.decode(errors="replace")

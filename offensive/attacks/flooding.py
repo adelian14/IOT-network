@@ -9,6 +9,7 @@ import time
 import random
 import string
 import paho.mqtt.client as mqtt
+from offensive.ground_truth import tag as gt_tag
 
 FLOOD_TOPICS = [
     "home/thermo/data",
@@ -39,6 +40,7 @@ def run(broker_ip, duration=15, messages_per_second=50):
         topic = random.choice(FLOOD_TOPICS)
         payload = "".join(random.choices(string.ascii_letters + string.digits, k=random.randint(10, 200)))
         client.publish(topic, payload)
+        gt_tag(client, "flooding", topic, payload)
         count += 1
         time.sleep(interval)
 
