@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offensive Module — IoT Network Security System</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --text:          #1c1c1e;
+      --text-muted:    #5c5c6e;
+      --bg:            #f7f7f5;
+      --surface:       #ffffff;
+      --border:        #e2e2dc;
+      --accent:        #1d4ed8;
+      --accent-light:  #eff6ff;
+      --accent-border: #bfdbfe;
+      --danger:        #b91c1c;
+      --danger-light:  #fef2f2;
+      --danger-border: #fecaca;
+      --success:       #15803d;
+      --success-light: #f0fdf4;
+      --warning:       #92400e;
+      --warning-light: #fffbeb;
+      --code-bg:       #f1f1ee;
+      --radius:        8px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    /* ── Typography ─────────────────────────────────────── */
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+    .subtitle {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+    .doc-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 3rem;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 3rem 0 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--border);
+    }
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 2rem 0 0.6rem;
+    }
+
+    p { margin-bottom: 1rem; color: var(--text); }
+    p:last-child { margin-bottom: 0; }
+
+    ul, ol { padding-left: 1.4rem; margin-bottom: 1rem; }
+    li { margin-bottom: 0.35rem; }
+
+    strong { font-weight: 600; }
+    em { color: var(--text-muted); font-style: normal; }
+
+    /* ── Code ───────────────────────────────────────────── */
+    code {
+      font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Courier New', monospace;
+      font-size: 0.875rem;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.1em 0.4em;
+    }
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin: 1rem 0;
+      overflow-x: auto;
+      font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Courier New', monospace;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+    pre code { background: none; border: none; padding: 0; }
+
+    /* ── Callout boxes ──────────────────────────────────── */
+    .callout {
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0;
+      border-left: 3px solid;
+    }
+    .callout.info {
+      background: var(--accent-light);
+      border-color: var(--accent);
+      color: #1e3a8a;
+    }
+    .callout.danger {
+      background: var(--danger-light);
+      border-color: var(--danger);
+      color: #7f1d1d;
+    }
+    .callout.success {
+      background: var(--success-light);
+      border-color: var(--success);
+      color: #14532d;
+    }
+    .callout.warning {
+      background: var(--warning-light);
+      border-color: #d97706;
+      color: var(--warning);
+    }
+    .callout-title {
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+
+    /* ── Tables ─────────────────────────────────────────── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.92rem;
+    }
+    th {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      padding: 0.55rem 0.9rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    td {
+      border: 1px solid var(--border);
+      padding: 0.55rem 0.9rem;
+      vertical-align: top;
+    }
+    tr:nth-child(even) td { background: #fafaf8; }
+
+    /* ── Attack cards ───────────────────────────────────── */
+    .attack-grid {
+      display: grid;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .attack-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .attack-card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      background: #fafaf8;
+    }
+    .attack-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background: var(--danger);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .attack-badge.scan { background: #6b7280; }
+    .attack-badge.spoof { background: #b45309; }
+    .attack-badge.flood { background: #b91c1c; }
+    .attack-badge.inject { background: #7c2d12; }
+    .attack-badge.replay { background: #6d28d9; }
+    .attack-badge.malform { background: #0e7490; }
+
+    .attack-card-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+    .attack-card-tag {
+      margin-left: auto;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.15em 0.5em;
+      white-space: nowrap;
+    }
+    .attack-card-body {
+      padding: 1.25rem 1.5rem;
+    }
+
+    /* ── Step flow ──────────────────────────────────────── */
+    .steps {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+      position: relative;
+    }
+    .steps::before {
+      content: '';
+      position: absolute;
+      left: 0.9rem;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+    .steps li {
+      position: relative;
+      padding: 0.4rem 0 0.4rem 2.5rem;
+      margin-bottom: 0;
+    }
+    .steps li::before {
+      content: attr(data-n);
+      position: absolute;
+      left: 0;
+      top: 0.4rem;
+      width: 1.8rem;
+      height: 1.8rem;
+      background: var(--surface);
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1.8rem;
+      text-align: center;
+    }
+
+    /* ── Diagram container ──────────────────────────────── */
+    .diagram {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      overflow-x: auto;
+      text-align: center;
+    }
+    .diagram figcaption {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+      font-style: italic;
+    }
+
+    /* ── Tag pill ───────────────────────────────────────── */
+    .pill {
+      display: inline-block;
+      font-size: 0.75rem;
+      border-radius: 20px;
+      padding: 0.15em 0.6em;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .pill.red  { background: #fee2e2; color: #7f1d1d; }
+    .pill.amber { background: #fef3c7; color: #78350f; }
+    .pill.blue  { background: #dbeafe; color: #1e3a8a; }
+    .pill.green { background: #dcfce7; color: #14532d; }
+    .pill.grey  { background: #f3f4f6; color: #374151; }
+
+    /* ── Severity badge ─────────────────────────────────── */
+    .sev {
+      font-family: 'SF Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border-radius: 4px;
+      padding: 0.1em 0.4em;
+    }
+    .sev-9 { background: #7f1d1d; color: #fff; }
+    .sev-8 { background: #b91c1c; color: #fff; }
+    .sev-7 { background: #dc2626; color: #fff; }
+    .sev-6 { background: #d97706; color: #fff; }
+    .sev-5 { background: #f59e0b; color: #fff; }
+    .sev-4 { background: #fbbf24; color: #1c1c1e; }
+
+    /* ── Key-value pairs ────────────────────────────────── */
+    .kv-list {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 0.3rem 1rem;
+      font-size: 0.9rem;
+    }
+    .kv-key { color: var(--text-muted); font-weight: 500; }
+    .kv-val { color: var(--text); }
+
+    /* ── No leakage diagram ─────────────────────────────── */
+    .guarantee-box {
+      background: var(--success-light);
+      border: 1px solid #86efac;
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin: 1.25rem 0;
+    }
+
+    /* ── Footer ─────────────────────────────────────────── */
+    footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ─── Header ──────────────────────────────────────────────────────── -->
+  <h1>Offensive Module</h1>
+  <p class="subtitle">Attack Techniques &amp; Packet Flow — IoT Network Security System</p>
+  <p class="doc-meta">Source: <code>offensive/</code> &nbsp;·&nbsp; Node: <strong>10.0.0.50</strong> &nbsp;·&nbsp; Companion document: <em>metrics_explained.html</em></p>
+
+  <!-- ─── Overview ────────────────────────────────────────────────────── -->
+  <h2>Overview</h2>
+  <p>
+    The Offensive Node is the red-team component of the IoT Network Security System. It simulates a
+    malicious actor inside the <code>10.0.0.0/24</code> subnet who has gained network access and is
+    attempting to compromise the smart-home infrastructure.
+  </p>
+  <p>
+    Its goals are straightforward: send realistic attacks across the MQTT broker, observe how the IDS
+    responds, and provide objective ground-truth labels that allow the Metrics Tracker to evaluate
+    detection accuracy without trusting the IDS's own self-assessment.
+  </p>
+  <p>
+    The module is deliberately not stealthy — it uses recognisably fake client IDs and out-of-range
+    payloads so that each attack triggers well-defined detection rules. This makes it a controlled,
+    repeatable test harness rather than an actual evasion tool.
+  </p>
+
+  <!-- ─── Network Position ─────────────────────────────────────────────── -->
+  <h2>Position in the Network</h2>
+  <p>
+    Every device communicates exclusively through the MQTT broker at <code>10.0.0.100</code>.
+    The Attacker connects to the same broker, making it invisible from a routing perspective —
+    it looks like just another MQTT client. The IDS, however, watches every topic on the broker and
+    classifies each message through a four-stage pipeline.
+  </p>
+
+  <div class="diagram">
+    <svg viewBox="0 0 760 310" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:760px;display:block;margin:0 auto;">
+      <defs>
+        <marker id="arr"     markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0, 9 3.5, 0 7" fill="#6b7280"/></marker>
+        <marker id="arr-red" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0, 9 3.5, 0 7" fill="#b91c1c"/></marker>
+        <marker id="arr-blu" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0, 9 3.5, 0 7" fill="#1d4ed8"/></marker>
+        <marker id="arr-grn" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0, 9 3.5, 0 7" fill="#15803d"/></marker>
+      </defs>
+
+      <!-- Broker (center) -->
+      <rect x="290" y="120" width="180" height="60" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+      <text x="380" y="145" text-anchor="middle" font-size="13" font-weight="600" fill="#0f172a">MQTT Broker</text>
+      <text x="380" y="163" text-anchor="middle" font-size="11" fill="#64748b">mosquitto · 10.0.0.100</text>
+
+      <!-- Sensors (left) -->
+      <rect x="20" y="120" width="150" height="60" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+      <text x="95" y="145" text-anchor="middle" font-size="13" font-weight="600" fill="#0f172a">Sensors</text>
+      <text x="95" y="163" text-anchor="middle" font-size="11" fill="#64748b">10.0.0.2 – 11</text>
+
+      <!-- CPU Logic -->
+      <rect x="590" y="60" width="150" height="60" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+      <text x="665" y="84" text-anchor="middle" font-size="13" font-weight="600" fill="#0f172a">CPU (cpu.py)</text>
+      <text x="665" y="102" text-anchor="middle" font-size="11" fill="#64748b">10.0.0.100</text>
+
+      <!-- Actuators -->
+      <rect x="590" y="180" width="150" height="60" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+      <text x="665" y="206" text-anchor="middle" font-size="13" font-weight="600" fill="#0f172a">Actuators</text>
+      <text x="665" y="224" text-anchor="middle" font-size="11" fill="#64748b">10.0.0.12 – 21</text>
+
+      <!-- IDS -->
+      <rect x="290" y="235" width="180" height="60" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+      <text x="380" y="260" text-anchor="middle" font-size="13" font-weight="600" fill="#1e3a8a">IDS Node</text>
+      <text x="380" y="278" text-anchor="middle" font-size="11" fill="#3b82f6">10.0.0.99 · subscribes #</text>
+
+      <!-- Attacker -->
+      <rect x="20" y="20" width="150" height="60" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="2" stroke-dasharray="6 3"/>
+      <text x="95" y="45" text-anchor="middle" font-size="13" font-weight="600" fill="#b91c1c">Attacker Node</text>
+      <text x="95" y="64" text-anchor="middle" font-size="11" fill="#ef4444">10.0.0.50</text>
+
+      <!-- Metrics Tracker -->
+      <rect x="590" y="235" width="150" height="60" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <text x="665" y="260" text-anchor="middle" font-size="13" font-weight="600" fill="#15803d">Metrics Tracker</text>
+      <text x="665" y="278" text-anchor="middle" font-size="11" fill="#16a34a">any node</text>
+
+      <!-- ── Edges ────────────────────────────────── -->
+      <!-- Sensors → Broker -->
+      <line x1="170" y1="150" x2="288" y2="150" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+      <text x="229" y="143" text-anchor="middle" font-size="10" fill="#9ca3af">home/*/data</text>
+
+      <!-- Broker → CPU -->
+      <line x1="470" y1="138" x2="588" y2="102" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+      <text x="530" y="113" text-anchor="middle" font-size="10" fill="#9ca3af">data</text>
+
+      <!-- CPU → Broker (control) -->
+      <line x1="590" y1="115" x2="472" y2="147" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+      <text x="540" y="142" text-anchor="middle" font-size="10" fill="#9ca3af">control</text>
+
+      <!-- Broker → Actuators (via CPU implied) -->
+      <line x1="665" y1="120" x2="665" y2="178" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+
+      <!-- Broker → IDS -->
+      <line x1="380" y1="180" x2="380" y2="233" stroke="#1d4ed8" stroke-width="1.5" marker-end="url(#arr-blu)"/>
+      <text x="400" y="210" font-size="10" fill="#3b82f6">all topics</text>
+
+      <!-- Broker → Metrics -->
+      <line x1="470" y1="168" x2="588" y2="250" stroke="#15803d" stroke-width="1.5" marker-end="url(#arr-grn)"/>
+
+      <!-- Attacker → Broker -->
+      <line x1="170" y1="58" x2="350" y2="124" stroke="#b91c1c" stroke-width="2" stroke-dasharray="7 4" marker-end="url(#arr-red)"/>
+      <text x="260" y="75" text-anchor="middle" font-size="10" fill="#b91c1c">attack traffic</text>
+    </svg>
+    <figcaption>Fig. 1 — The Attacker (dashed red) connects to the broker like any legitimate client. The IDS passively receives all traffic via a wildcard subscription.</figcaption>
+  </div>
+
+  <!-- ─── The Dual-Publish Mechanism ────────────────────────────────────── -->
+  <h2>The Dual-Publish Mechanism</h2>
+  <p>
+    Every MQTT attack module follows the same two-action pattern. For each malicious message it
+    publishes, it immediately calls <code>ground_truth.tag()</code> to publish a parallel label to
+    the <code>metrics/ground_truth</code> topic. These two publications are always paired.
+  </p>
+
+  <div class="diagram">
+    <svg viewBox="0 0 680 380" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:680px;display:block;margin:0 auto;">
+      <defs>
+        <marker id="da"   markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0, 9 3.5, 0 7" fill="#b91c1c"/></marker>
+        <marker id="ga"   markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0, 9 3.5, 0 7" fill="#15803d"/></marker>
+        <marker id="ba"   markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0, 9 3.5, 0 7" fill="#6b7280"/></marker>
+      </defs>
+
+      <!-- Column labels -->
+      <text x="170" y="22" text-anchor="middle" font-size="11" font-weight="600" fill="#b91c1c">ATTACK PATH</text>
+      <text x="510" y="22" text-anchor="middle" font-size="11" font-weight="600" fill="#15803d">GROUND TRUTH PATH</text>
+
+      <!-- Dividing line -->
+      <line x1="340" y1="0" x2="340" y2="380" stroke="#e2e2dc" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+      <!-- ATTACKER NODE (shared) -->
+      <rect x="215" y="35" width="250" height="55" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="2"/>
+      <text x="340" y="57" text-anchor="middle" font-size="13" font-weight="600" fill="#b91c1c">Attacker Script</text>
+      <text x="340" y="77" text-anchor="middle" font-size="11" fill="#dc2626">offensive/attacks/*.py</text>
+
+      <!-- Arrow from attacker: LEFT (publish attack) -->
+      <line x1="280" y1="90" x2="170" y2="135" stroke="#b91c1c" stroke-width="2" marker-end="url(#da)"/>
+      <text x="195" y="115" text-anchor="middle" font-size="10" fill="#b91c1c">① client.publish()</text>
+
+      <!-- Arrow from attacker: RIGHT (ground truth) -->
+      <line x1="400" y1="90" x2="510" y2="135" stroke="#15803d" stroke-width="2" marker-end="url(#ga)"/>
+      <text x="490" y="115" text-anchor="middle" font-size="10" fill="#15803d">② gt_tag()</text>
+
+      <!-- LEFT: MQTT Broker -->
+      <rect x="60" y="140" width="220" height="55" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+      <text x="170" y="162" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">MQTT Broker</text>
+      <text x="170" y="179" text-anchor="middle" font-size="11" fill="#64748b">topic: home/thermo/data</text>
+
+      <!-- LEFT: Arrow down to IDS -->
+      <line x1="170" y1="195" x2="170" y2="238" stroke="#6b7280" stroke-width="1.5" marker-end="url(#ba)"/>
+      <text x="190" y="220" font-size="10" fill="#9ca3af">forwarded</text>
+
+      <!-- LEFT: IDS Node -->
+      <rect x="60" y="243" width="220" height="55" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+      <text x="170" y="265" text-anchor="middle" font-size="12" font-weight="600" fill="#1e3a8a">IDS Node</text>
+      <text x="170" y="282" text-anchor="middle" font-size="11" fill="#3b82f6">four-stage pipeline</text>
+
+      <!-- LEFT: Arrow down to alert -->
+      <line x1="170" y1="298" x2="170" y2="338" stroke="#6b7280" stroke-width="1.5" marker-end="url(#ba)"/>
+
+      <!-- LEFT: Alert -->
+      <rect x="85" y="343" width="170" height="30" rx="6" fill="#fef2f2" stroke="#fca5a5"/>
+      <text x="170" y="363" text-anchor="middle" font-size="11" font-weight="600" fill="#b91c1c">security/alert</text>
+
+      <!-- RIGHT: MQTT Broker (ground truth) -->
+      <rect x="400" y="140" width="220" height="55" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+      <text x="510" y="162" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">MQTT Broker</text>
+      <text x="510" y="179" text-anchor="middle" font-size="11" fill="#64748b">topic: metrics/ground_truth</text>
+
+      <!-- RIGHT: Arrow down to Metrics Tracker -->
+      <line x1="510" y1="195" x2="510" y2="238" stroke="#15803d" stroke-width="1.5" marker-end="url(#ga)"/>
+
+      <!-- RIGHT: Metrics Tracker -->
+      <rect x="400" y="243" width="220" height="55" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <text x="510" y="265" text-anchor="middle" font-size="12" font-weight="600" fill="#15803d">Metrics Tracker</text>
+      <text x="510" y="282" text-anchor="middle" font-size="11" fill="#16a34a">records attack label</text>
+
+      <!-- IDS CANNOT SEE label -->
+      <text x="510" y="325" text-anchor="middle" font-size="11" fill="#b91c1c" font-style="italic">IDS never sees this topic</text>
+      <text x="510" y="341" text-anchor="middle" font-size="10" fill="#9ca3af">(filtered at entry point)</text>
+    </svg>
+    <figcaption>Fig. 2 — Every attack publishes two messages simultaneously: the malicious payload to the target topic, and a structured label to <code>metrics/ground_truth</code>. Only the Metrics Tracker receives the label; the IDS is blind to it.</figcaption>
+  </div>
+
+  <div class="callout info">
+    <div class="callout-title">Why two separate publications?</div>
+    The IDS must evaluate traffic on its own merits — it cannot know in advance which messages are
+    attacks. By putting ground truth labels on a separate topic that the IDS explicitly ignores, the
+    system can measure real detection performance without any information leaking into the IDS pipeline.
+  </div>
+
+  <!-- ─── The Six Attacks ───────────────────────────────────────────────── -->
+  <h2>The Six Attacks</h2>
+
+  <div class="attack-grid">
+
+    <!-- ── Attack 1: Network Scan ─────────────────────────── -->
+    <div class="attack-card">
+      <div class="attack-card-header">
+        <span class="attack-badge scan">1</span>
+        <span class="attack-card-title">Network Scan — Reconnaissance</span>
+        <span class="attack-card-tag">scanner.py</span>
+      </div>
+      <div class="attack-card-body">
+        <p>
+          The scan is a pre-attack reconnaissance phase. It discovers which hosts are alive on the
+          <code>10.0.0.x</code> subnet and identifies the MQTT broker before any MQTT messages are sent.
+          This mirrors what a real attacker would do before targeting specific devices.
+        </p>
+
+        <h3>How it works</h3>
+        <ol class="steps">
+          <li data-n="1">Opens a raw TCP socket to each IP in the range <code>10.0.0.1 – 10.0.0.100</code> on port <strong>1883</strong> (MQTT default).</li>
+          <li data-n="2">Records any IP where the TCP handshake succeeds — these hosts have Mosquitto running.</li>
+          <li data-n="3">For each discovered host, sends a raw MQTT <code>CONNECT</code> packet (byte-crafted, no library) and reads the <code>CONNACK</code> return code to confirm broker identity.</li>
+          <li data-n="4">Scans discovered hosts for common additional ports (22 SSH, 80 HTTP, 443 HTTPS, 8080, 8883 MQTTS).</li>
+        </ol>
+
+        <div class="kv-list">
+          <span class="kv-key">Protocol level</span><span class="kv-val">TCP (not MQTT) — no broker authentication</span>
+          <span class="kv-key">MQTT messages sent</span><span class="kv-val">None — only raw socket connections</span>
+          <span class="kv-key">Ground truth tags</span><span class="kv-val">None — no MQTT, so no tagging</span>
+          <span class="kv-key">IDS visibility</span><span class="kv-val">None — the IDS only sees MQTT traffic via the broker</span>
+        </div>
+
+        <div class="callout warning" style="margin-top:1rem;">
+          <div class="callout-title">Detection Gap</div>
+          The network scan produces zero MQTT messages and is therefore completely invisible to the IDS.
+          This is intentional — it demonstrates the IDS's blind spot at the network/transport layer.
+          A real deployment would pair this with network-level IDS (Snort/Suricata) or firewall logs.
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Attack 2: Spoofing ──────────────────────────────── -->
+    <div class="attack-card">
+      <div class="attack-card-header">
+        <span class="attack-badge spoof">2</span>
+        <span class="attack-card-title">Spoofing — Fake Sensor Data</span>
+        <span class="attack-card-tag">attacks/spoofing.py</span>
+      </div>
+      <div class="attack-card-body">
+        <p>
+          The attacker impersonates IoT sensors by publishing to their data topics with physically
+          impossible values. The goal is to feed the CPU with false readings that trigger incorrect
+          actuator commands — for example, reporting a temperature of 999°C to force the thermostat
+          to maximum cooling.
+        </p>
+
+        <h3>How it works</h3>
+        <ol class="steps">
+          <li data-n="1">Connects to the broker using client ID <code>spoofed-sensor</code> (not in the device registry).</li>
+          <li data-n="2">Every 1 second, picks a random target topic and a random out-of-range value from a preset table.</li>
+          <li data-n="3">Publishes the fake payload to that topic.</li>
+          <li data-n="4">Immediately calls <code>gt_tag()</code> to publish the label to <code>metrics/ground_truth</code>.</li>
+        </ol>
+
+        <table>
+          <thead><tr><th>Target Topic</th><th>Example Payloads</th><th>Normal Range</th></tr></thead>
+          <tbody>
+            <tr><td><code>home/thermo/data</code></td><td><code>999</code>, <code>-200</code>, <code>500.5</code></td><td>−10 °C to 60 °C</td></tr>
+            <tr><td><code>home/sound/data</code></td><td><code>1000</code>, <code>-50</code>, <code>9999</code></td><td>0 – 120 dB</td></tr>
+            <tr><td><code>home/lighting/data</code></td><td><code>strobing</code>, <code>hacked</code></td><td><code>day</code> | <code>night</code></td></tr>
+            <tr><td><code>home/door/data</code></td><td><code>forced_open</code>, <code>BREACH</code></td><td><code>detected</code> | <code>none</code></td></tr>
+            <tr><td><code>home/camera/data</code></td><td><code>disabled</code>, <code>hijacked</code></td><td><code>motion</code> | <code>clear</code></td></tr>
+          </tbody>
+        </table>
+
+        <div class="kv-list" style="margin-top:0.75rem;">
+          <span class="kv-key">Client ID</span><span class="kv-val"><code>spoofed-sensor</code></span>
+          <span class="kv-key">Primary detection</span><span class="kv-val"><code>value_range</code> rule — severity <span class="sev sev-7">7</span>–<span class="sev sev-9">9</span></span>
+          <span class="kv-key">Secondary triggers</span><span class="kv-val">Unknown client ID (Firewall FLAG) · <code>topic_acl</code> violation (wrong client publishing to topic)</span>
+          <span class="kv-key">Rate</span><span class="kv-val">1 message / second for 30 s (default)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Attack 3: Flooding ──────────────────────────────── -->
+    <div class="attack-card">
+      <div class="attack-card-header">
+        <span class="attack-badge flood">3</span>
+        <span class="attack-card-title">Flooding — Denial of Service</span>
+        <span class="attack-card-tag">attacks/flooding.py</span>
+      </div>
+      <div class="attack-card-body">
+        <p>
+          The attacker floods the broker with a high volume of messages to overwhelm the CPU's
+          message processing loop and degrade the IDS's ability to keep up with traffic. Random
+          payloads are used so individual messages don't trigger value-range rules; the volume
+          itself is the attack vector.
+        </p>
+
+        <h3>How it works</h3>
+        <ol class="steps">
+          <li data-n="1">Connects to the broker using client ID <code>flood-bot</code>.</li>
+          <li data-n="2">Sends messages at a configurable rate (default: 50 messages/second).</li>
+          <li data-n="3">Cycles through a mix of real device topics (<code>home/*/data</code>) and fake topics (<code>flood/random/topic1</code>) to probe different detection rules.</li>
+          <li data-n="4">Each message payload is a random alphanumeric string (10–200 chars) to avoid pattern detection.</li>
+          <li data-n="5">Tags every message with a ground truth label.</li>
+        </ol>
+
+        <div class="kv-list" style="margin-top:0.75rem;">
+          <span class="kv-key">Client ID</span><span class="kv-val"><code>flood-bot</code></span>
+          <span class="kv-key">Rate</span><span class="kv-val">50 msgs/sec (default) for 15 s → ~750 messages total</span>
+          <span class="kv-key">Primary detection</span><span class="kv-val">Firewall rate limit — sensor type allows ≤ 15 msgs/60 s; 50/s exceeds this immediately</span>
+          <span class="kv-key">Secondary triggers</span><span class="kv-val"><code>unknown_topic</code> (severity <span class="sev sev-5">5</span>) for <code>flood/*</code> topics · unknown client ID</span>
+        </div>
+
+        <div class="callout info" style="margin-top:1rem;">
+          <div class="callout-title">Rate Limit Detail</div>
+          The Firewall uses a sliding-window counter per device type. Sensors are allowed 15 messages
+          per 60-second window. Once exceeded, the message is flagged and the severity escalates to
+          the point of a THREAT verdict and dynamic block.
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Attack 4: Injection ────────────────────────────── -->
+    <div class="attack-card">
+      <div class="attack-card-header">
+        <span class="attack-badge inject">4</span>
+        <span class="attack-card-title">Injection — Direct Actuator Commands</span>
+        <span class="attack-card-tag">attacks/injection.py</span>
+      </div>
+      <div class="attack-card-body">
+        <p>
+          This is the highest-severity attack in the system. The attacker bypasses the CPU entirely
+          and publishes commands directly to <code>/control</code> topics — the channel reserved
+          exclusively for the CPU node. This can physically manipulate actuators: unlock doors,
+          disable cameras, silence fire alarms, or create electrical hazards.
+        </p>
+
+        <h3>How it works</h3>
+        <ol class="steps">
+          <li data-n="1">Connects as client ID <code>injector-node</code>.</li>
+          <li data-n="2">Cycles through a list of pre-defined (topic, command) pairs at 2-second intervals.</li>
+          <li data-n="3">Each pair targets a specific actuator control topic and sends a dangerous command.</li>
+          <li data-n="4">Tags each command with a ground truth label.</li>
+        </ol>
+
+        <table>
+          <thead><tr><th>Control Topic</th><th>Injected Command</th><th>Physical Effect</th></tr></thead>
+          <tbody>
+            <tr><td><code>home/door/control</code></td><td><code>unlock</code>, <code>force_open</code></td><td>Unlocks door lock actuator</td></tr>
+            <tr><td><code>home/camera/control</code></td><td><code>off</code>, <code>disable_recording</code></td><td>Disables security camera</td></tr>
+            <tr><td><code>home/Smoke-Gas-Sensor/control</code></td><td><code>silence</code></td><td>Silences fire/gas alarm</td></tr>
+            <tr><td><code>home/smart-plug/control</code></td><td><code>surge</code></td><td>Forces power outlet on (fire risk)</td></tr>
+            <tr><td><code>home/thermo/control</code></td><td><code>max_heat</code></td><td>Thermostat to maximum</td></tr>
+            <tr><td><code>home/Smart-Speaker/control</code></td><td><code>play_malicious_audio</code></td><td>Speaker command injection</td></tr>
+          </tbody>
+        </table>
+
+        <div class="kv-list" style="margin-top:0.75rem;">
+          <span class="kv-key">Client ID</span><span class="kv-val"><code>injector-node</code></span>
+          <span class="kv-key">Primary detection</span><span class="kv-val"><code>direct_actuator_access</code> — severity <span class="sev sev-9">9</span> (maximum)</span>
+          <span class="kv-key">Secondary triggers</span><span class="kv-val"><code>topic_acl</code> — only <code>cpu</code> is allowed to write to <code>/control</code> topics</span>
+        </div>
+
+        <div class="callout danger" style="margin-top:1rem;">
+          <div class="callout-title">Highest Severity</div>
+          The <code>direct_actuator_access</code> rule assigns severity 9 (the maximum) to any
+          non-CPU client that writes to a <code>/control</code> topic. This immediately triggers
+          a THREAT verdict without needing LLM confirmation.
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Attack 5: Replay ───────────────────────────────── -->
+    <div class="attack-card">
+      <div class="attack-card-header">
+        <span class="attack-badge replay">5</span>
+        <span class="attack-card-title">Replay — Capture &amp; Replay</span>
+        <span class="attack-card-tag">attacks/replay.py</span>
+      </div>
+      <div class="attack-card-body">
+        <p>
+          A two-phase attack that first passively captures legitimate sensor messages, then floods the
+          broker with them at an abnormally high rate. Because the payloads are valid (captured from
+          real sensors), they don't fail value-range checks — the anomaly is the frequency and repetition.
+        </p>
+
+        <h3>How it works</h3>
+        <ol class="steps">
+          <li data-n="1"><strong>Capture phase:</strong> Connects as <code>replay-sniffer</code>, subscribes to five sensor topics, and passively records all messages for 10 seconds. No ground truth labels are published during this phase — sniffing legitimate traffic is not itself an attack event.</li>
+          <li data-n="2"><strong>Replay phase:</strong> Disconnects, connects as <code>replay-attacker</code>, and immediately replays the captured messages in a tight loop at 5 messages/second.</li>
+          <li data-n="3">Each replayed message is tagged with a ground truth label (attack type: <code>replay</code>).</li>
+        </ol>
+
+        <div class="kv-list" style="margin-top:0.75rem;">
+          <span class="kv-key">Client IDs</span><span class="kv-val"><code>replay-sniffer</code> (capture) · <code>replay-attacker</code> (replay)</span>
+          <span class="kv-key">Capture topics</span><span class="kv-val"><code>home/thermo/data</code>, <code>home/lighting/data</code>, <code>home/door/data</code>, <code>home/camera/data</code>, <code>home/sound/data</code></span>
+          <span class="kv-key">Replay rate</span><span class="kv-val">5 msgs/sec for 20 s → ~100 replayed messages</span>
+          <span class="kv-key">Primary detection</span><span class="kv-val">Firewall rate limit exceeded · <code>suspicious_pattern</code> (repeated identical payloads)</span>
+        </div>
+
+        <div class="callout warning" style="margin-top:1rem;">
+          <div class="callout-title">Intentional Asymmetry in Ground Truth</div>
+          Only the replay phase is tagged. The capture phase is passive observation of legitimate traffic
+          and would be impossible to distinguish from a benign subscriber (such as the Metrics Tracker
+          itself). Tagging it would create false positives in the ground truth data.
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Attack 6: Malformed ────────────────────────────── -->
+    <div class="attack-card">
+      <div class="attack-card-header">
+        <span class="attack-badge malform">6</span>
+        <span class="attack-card-title">Malformed Payloads — Input Validation Attack</span>
+        <span class="attack-card-tag">attacks/malformed.py</span>
+      </div>
+      <div class="attack-card-body">
+        <p>
+          Sends deliberately corrupt or malicious payloads to test the IDS's input validation and the
+          CPU's parsing robustness. Payloads range from binary garbage and SQL injection strings to
+          oversized buffers and prototype pollution attempts.
+        </p>
+
+        <h3>How it works</h3>
+        <ol class="steps">
+          <li data-n="1">Connects as <code>malform-bot</code>.</li>
+          <li data-n="2">Every 1.5 seconds, picks a random target topic and a random payload from a curated list of malicious strings.</li>
+          <li data-n="3">Publishes the payload and tags it with ground truth (payload truncated to 100 chars for the label).</li>
+        </ol>
+
+        <table>
+          <thead><tr><th>Payload Type</th><th>Example</th><th>IDS Rule Triggered</th></tr></thead>
+          <tbody>
+            <tr><td>Binary/null bytes</td><td><code>\x00\x01\x02\xff\xfe\xfd</code></td><td><code>payload_integrity</code> — binary chars</td></tr>
+            <tr><td>SQL Injection</td><td><code>SELECT * FROM users; DROP TABLE devices;--</code></td><td><code>payload_integrity</code> — SQL pattern</td></tr>
+            <tr><td>XSS</td><td><code>&lt;script&gt;alert('xss')&lt;/script&gt;</code></td><td><code>payload_integrity</code> — HTML/script tag</td></tr>
+            <tr><td>Path traversal</td><td><code>../../../../etc/passwd</code></td><td><code>payload_integrity</code> — traversal pattern</td></tr>
+            <tr><td>Oversized (2000 B)</td><td><code>"A" × 2000</code></td><td><code>suspicious_pattern</code> · Firewall payload limit (1024 B)</td></tr>
+            <tr><td>HTTP injection</td><td><code>\r\nHTTP/1.1 200 OK\r\n...</code></td><td><code>payload_integrity</code> — CRLF injection</td></tr>
+            <tr><td>Prototype pollution</td><td><code>{"__proto__":{"admin":true}}</code></td><td><code>payload_integrity</code> — suspicious pattern</td></tr>
+          </tbody>
+        </table>
+
+        <div class="kv-list" style="margin-top:0.75rem;">
+          <span class="kv-key">Client ID</span><span class="kv-val"><code>malform-bot</code></span>
+          <span class="kv-key">Primary detection</span><span class="kv-val"><code>payload_integrity</code> — severity <span class="sev sev-4">4</span>–<span class="sev sev-7">7</span> depending on pattern</span>
+          <span class="kv-key">Secondary triggers</span><span class="kv-val">Firewall payload size limit (max 1024 bytes); <code>suspicious_pattern</code> for oversized/repetitive payloads</span>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- /.attack-grid -->
+
+  <!-- ─── Packet Flow Through the IDS ───────────────────────────────────── -->
+  <h2>Packet Flow Through the IDS Pipeline</h2>
+  <p>
+    Once an attack message arrives at the broker, the IDS (subscribed to <code>#</code>) receives it
+    and immediately passes it through four sequential stages. Here is what happens to a spoofed
+    temperature reading of <code>999</code>:
+  </p>
+
+  <div class="diagram">
+    <svg viewBox="0 0 660 520" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block;margin:0 auto;">
+      <defs>
+        <marker id="pa" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0, 9 3.5, 0 7" fill="#475569"/></marker>
+      </defs>
+
+      <!-- Message arrives -->
+      <rect x="180" y="10" width="300" height="55" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+      <text x="330" y="32" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">Incoming MQTT Message</text>
+      <text x="330" y="51" text-anchor="middle" font-size="10" fill="#64748b">topic: home/thermo/data · payload: "999" · client: spoofed-sensor</text>
+
+      <line x1="330" y1="65" x2="330" y2="95" stroke="#475569" stroke-width="1.5" marker-end="url(#pa)"/>
+
+      <!-- Stage 1: Firewall -->
+      <rect x="100" y="100" width="460" height="70" rx="8" fill="#fffbeb" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="330" y="121" text-anchor="middle" font-size="12" font-weight="600" fill="#92400e">① Firewall</text>
+      <text x="330" y="139" text-anchor="middle" font-size="10.5" fill="#78350f">IP 10.0.0.50 not in whitelist → FLAG</text>
+      <text x="330" y="156" text-anchor="middle" font-size="10.5" fill="#78350f">Client "spoofed-sensor" unknown → FLAG · Rate not yet exceeded</text>
+
+      <line x1="330" y1="170" x2="330" y2="200" stroke="#475569" stroke-width="1.5" marker-end="url(#pa)"/>
+      <text x="348" y="189" font-size="10" fill="#9ca3af">PASS (flagged)</text>
+
+      <!-- Stage 2: Rule Engine -->
+      <rect x="100" y="205" width="460" height="70" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+      <text x="330" y="226" text-anchor="middle" font-size="12" font-weight="600" fill="#7f1d1d">② Rule Engine</text>
+      <text x="330" y="244" text-anchor="middle" font-size="10.5" fill="#7f1d1d">value_range check: "999" outside [−10, 60] for home/thermo/data</text>
+      <text x="330" y="261" text-anchor="middle" font-size="10.5" fill="#7f1d1d">→ severity 8, confidence 0.55 · topic_acl: spoofed-sensor not authorised</text>
+
+      <line x1="330" y1="275" x2="330" y2="305" stroke="#475569" stroke-width="1.5" marker-end="url(#pa)"/>
+      <text x="348" y="294" font-size="10" fill="#9ca3af">severity ≥ 5, confidence ≤ 0.6</text>
+
+      <!-- Stage 3: LLM Analyzer -->
+      <rect x="100" y="310" width="460" height="70" rx="8" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/>
+      <text x="330" y="331" text-anchor="middle" font-size="12" font-weight="600" fill="#4c1d95">③ LLM Analyzer (Gemini)</text>
+      <text x="330" y="349" text-anchor="middle" font-size="10.5" fill="#5b21b6">Sends packet context + rule results + 10-message history to Gemini</text>
+      <text x="330" y="366" text-anchor="middle" font-size="10.5" fill="#5b21b6">→ is_threat: true, threat_type: spoofing, confidence: 0.95</text>
+
+      <line x1="330" y1="380" x2="330" y2="410" stroke="#475569" stroke-width="1.5" marker-end="url(#pa)"/>
+
+      <!-- Stage 4: Decision Engine -->
+      <rect x="100" y="415" width="460" height="70" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+      <text x="330" y="436" text-anchor="middle" font-size="12" font-weight="600" fill="#7f1d1d">④ Decision Engine</text>
+      <text x="330" y="453" text-anchor="middle" font-size="10.5" fill="#7f1d1d">LLM confirms threat → severity = max(rule=8, llm=8) = 8</text>
+      <text x="330" y="470" text-anchor="middle" font-size="10.5" fill="#7f1d1d">severity 8 ≥ 7 → THREAT verdict → publish security/alert · block device</text>
+    </svg>
+    <figcaption>Fig. 3 — The spoofed temperature reading "999" travels through all four IDS stages. LLM is invoked because severity ≥ 5 and confidence ≤ 0.6. Final verdict: THREAT.</figcaption>
+  </div>
+
+  <!-- ─── Ground Truth System ───────────────────────────────────────────── -->
+  <h2>Ground Truth System</h2>
+  <p>
+    The file <code>offensive/ground_truth.py</code> exposes a single function, <code>tag()</code>,
+    that every attack module calls immediately after publishing each malicious message.
+  </p>
+
+<pre><code># offensive/ground_truth.py
+
+def tag(client, attack_type: str, topic: str, payload: str) -> None:
+    event = {
+        "attack_type": attack_type,   # e.g. "spoofing", "flooding"
+        "target_topic": topic,         # the topic the attack was sent to
+        "payload": str(payload)[:200], # truncated for safety
+        "timestamp": datetime.now().isoformat(),
+    }
+    client.publish("metrics/ground_truth", json.dumps(event))</code></pre>
+
+  <p>
+    The Metrics Tracker subscribes to <code>metrics/ground_truth</code> and stores every event in
+    a list. At shutdown it uses these timestamps to determine — for each message on <code>home/#</code>
+    — whether the message was an attack or legitimate traffic (see <em>metrics_explained.html</em>).
+  </p>
+
+  <!-- ─── No-Leakage Guarantee ──────────────────────────────────────────── -->
+  <h2>The No-Leakage Guarantee</h2>
+  <p>
+    A critical requirement of any fair IDS evaluation is that the IDS must not be able to read the
+    ground truth labels. If it could, a naive implementation might cheat by treating the presence of
+    a <code>metrics/ground_truth</code> event as a detection signal. This system prevents that with
+    two independent mechanisms:
+  </p>
+
+  <div class="guarantee-box">
+    <strong>Mechanism 1 — Topic filter at the IDS entry point.</strong><br>
+    The very first lines of <code>_on_message()</code> in <code>security/ids_monitor.py</code> discard
+    any message whose topic starts with <code>security/</code> or <code>metrics/</code>. The message
+    is dropped before the Firewall, Rule Engine, LLM, or Decision Engine are even instantiated for
+    that message. There is no code path from <code>metrics/ground_truth</code> to any IDS stage.
+  </div>
+
+  <div class="guarantee-box">
+    <strong>Mechanism 2 — Zero import coupling.</strong><br>
+    <code>metrics/tracker.py</code> does not import any module from <code>security/</code>.
+    <code>offensive/ground_truth.py</code> does not import any module from <code>security/</code>.
+    The dependency graph is strictly one-directional: both the offensive node and the metrics tracker
+    are peers of the IDS, not extensions of it.
+  </div>
+
+  <!-- ─── Running the Offensive Node ───────────────────────────────────── -->
+  <h2>Running the Offensive Node</h2>
+  <p>The offensive node supports three modes:</p>
+
+  <pre><code># Interactive menu — choose attacks one at a time
+python offensive/attacker.py
+
+# Automated sequence — all six attacks in order with 5 s pauses
+python offensive/attacker.py auto
+
+# Network recon only
+python offensive/attacker.py scan
+
+# Single attack by number (1–6)
+python offensive/attacker.py 2   # spoofing only</code></pre>
+
+  <p>In automated mode the attack sequence runs with these default durations:</p>
+  <table>
+    <thead><tr><th>Attack</th><th>Duration</th><th>Rate</th></tr></thead>
+    <tbody>
+      <tr><td>Network Scan</td><td>~30–60 s (subnet-dependent)</td><td>—</td></tr>
+      <tr><td>Spoofing</td><td>15 s</td><td>1 msg/s</td></tr>
+      <tr><td>Flooding</td><td>10 s</td><td>30 msgs/s</td></tr>
+      <tr><td>Injection</td><td>15 s</td><td>1 msg/1.5 s</td></tr>
+      <tr><td>Replay</td><td>8 s capture + 15 s replay</td><td>5 msgs/s (replay)</td></tr>
+      <tr><td>Malformed</td><td>15 s</td><td>1 msg/1.5 s</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout info" style="margin-top:1.5rem;">
+    <div class="callout-title">Recommended Test Order</div>
+    Start the Metrics Tracker (<code>python -m metrics.tracker</code>) <em>before</em> launching the
+    offensive node so it catches all ground truth labels. Run the IDS before that. Stop with Ctrl+C
+    in reverse order: offensive node first, then IDS (generates summary report), then Metrics Tracker
+    (generates metrics report).
+  </div>
+
+  <footer>
+    IoT Network Security System — Offensive Module Reference &nbsp;|&nbsp;
+    Source: <code>offensive/</code> &nbsp;|&nbsp;
+    Broker: <code>10.0.0.100:1883</code> &nbsp;|&nbsp;
+    Attacker: <code>10.0.0.50</code>
+  </footer>
+
+</div>
+</body>
+</html>

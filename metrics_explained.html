@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Performance Metrics Explained — IoT Network Security System</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --text:          #1c1c1e;
+      --text-muted:    #5c5c6e;
+      --bg:            #f7f7f5;
+      --surface:       #ffffff;
+      --border:        #e2e2dc;
+      --accent:        #1d4ed8;
+      --accent-light:  #eff6ff;
+      --accent-border: #bfdbfe;
+      --danger:        #b91c1c;
+      --danger-light:  #fef2f2;
+      --success:       #15803d;
+      --success-light: #f0fdf4;
+      --warning:       #92400e;
+      --warning-light: #fffbeb;
+      --code-bg:       #f1f1ee;
+      --tp-bg:         #dcfce7;
+      --tp-text:       #14532d;
+      --tn-bg:         #dbeafe;
+      --tn-text:       #1e3a8a;
+      --fp-bg:         #fee2e2;
+      --fp-text:       #7f1d1d;
+      --fn-bg:         #fef3c7;
+      --fn-text:       #78350f;
+      --radius:        8px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    /* ── Typography ─────────────────────────────────────── */
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+    .subtitle {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+    .doc-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 3rem;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 3rem 0 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--border);
+    }
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 2rem 0 0.6rem;
+    }
+
+    p { margin-bottom: 1rem; }
+    p:last-child { margin-bottom: 0; }
+    ul, ol { padding-left: 1.4rem; margin-bottom: 1rem; }
+    li { margin-bottom: 0.35rem; }
+    strong { font-weight: 600; }
+
+    /* ── Code ───────────────────────────────────────────── */
+    code {
+      font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Courier New', monospace;
+      font-size: 0.875rem;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.1em 0.4em;
+    }
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin: 1rem 0;
+      overflow-x: auto;
+      font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Courier New', monospace;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+    pre code { background: none; border: none; padding: 0; }
+
+    /* ── Callout boxes ──────────────────────────────────── */
+    .callout {
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0;
+      border-left: 3px solid;
+    }
+    .callout.info  { background: var(--accent-light); border-color: var(--accent); color: #1e3a8a; }
+    .callout.success { background: var(--success-light); border-color: var(--success); color: #14532d; }
+    .callout.warning { background: var(--warning-light); border-color: #d97706; color: var(--warning); }
+    .callout-title { font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.4rem; }
+
+    /* ── Tables ─────────────────────────────────────────── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.92rem;
+    }
+    th {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      padding: 0.55rem 0.9rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    td {
+      border: 1px solid var(--border);
+      padding: 0.55rem 0.9rem;
+      vertical-align: top;
+    }
+    tr:nth-child(even) td { background: #fafaf8; }
+
+    /* ── Diagram container ──────────────────────────────── */
+    .diagram {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      overflow-x: auto;
+      text-align: center;
+    }
+    .diagram figcaption {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+      font-style: italic;
+    }
+
+    /* ── Formula blocks ─────────────────────────────────── */
+    .formula-block {
+      background: var(--surface);
+      border: 1px solid var(--accent-border);
+      border-radius: var(--radius);
+      padding: 1.75rem 2rem;
+      margin: 1.5rem 0;
+    }
+    .formula-block h3 {
+      margin-top: 0;
+      color: var(--accent);
+      font-size: 1.05rem;
+    }
+    .formula-line {
+      text-align: center;
+      margin: 1.25rem 0;
+    }
+    .frac-wrap {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 0.2em;
+      font-size: 1.05rem;
+    }
+    .frac-num {
+      border-bottom: 1.5px solid #1d4ed8;
+      padding: 0 0.5em 0.15em;
+      white-space: nowrap;
+    }
+    .frac-den {
+      padding: 0.15em 0.5em 0;
+      white-space: nowrap;
+    }
+    .formula-eq {
+      font-size: 1.15rem;
+      color: #1e3a8a;
+      font-style: italic;
+    }
+
+    .formula-meta {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 0.35rem 1rem;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+    .formula-meta-key { color: var(--text-muted); font-weight: 500; }
+    .formula-meta-val { color: var(--text); }
+
+    .formula-example {
+      background: #f8faff;
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      margin-top: 1rem;
+      font-size: 0.88rem;
+    }
+    .formula-example-title {
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+    .example-calc {
+      font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Courier New', monospace;
+      font-size: 0.85rem;
+      color: #1e3a8a;
+    }
+
+    /* ── Confusion matrix ───────────────────────────────── */
+    .cm-wrapper {
+      display: flex;
+      justify-content: center;
+      margin: 1.5rem 0;
+      overflow-x: auto;
+    }
+    .cm-container {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      grid-template-rows: auto auto auto;
+      gap: 4px;
+      font-size: 0.9rem;
+    }
+    .cm-corner   { background: transparent; }
+    .cm-col-head {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      padding: 0.5rem 1.5rem;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      border-radius: 4px;
+    }
+    .cm-row-head {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      writing-mode: horizontal-tb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+    }
+    .cm-cell {
+      padding: 1.25rem 1.5rem;
+      text-align: center;
+      border-radius: 6px;
+      min-width: 160px;
+      border: 1px solid transparent;
+    }
+    .cm-cell .cm-abbr { font-weight: 700; font-size: 1.15rem; display: block; margin-bottom: 0.25rem; }
+    .cm-cell .cm-name { font-size: 0.8rem; font-weight: 500; display: block; }
+    .cm-cell .cm-desc { font-size: 0.78rem; margin-top: 0.4rem; opacity: 0.8; }
+    .cm-tp { background: var(--tp-bg); color: var(--tp-text); border-color: #86efac; }
+    .cm-tn { background: var(--tn-bg); color: var(--tn-text); border-color: #93c5fd; }
+    .cm-fp { background: var(--fp-bg); color: var(--fp-text); border-color: #fca5a5; }
+    .cm-fn { background: var(--fn-bg); color: var(--fn-text); border-color: #fcd34d; }
+
+    /* ── Worked example ─────────────────────────────────── */
+    .example-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin: 1.5rem 0;
+    }
+    .example-section h3 { margin-top: 0; }
+
+    .example-numbers {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+    }
+    .ex-num {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.75rem 0.5rem;
+      text-align: center;
+    }
+    .ex-num-label { font-size: 0.72rem; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; }
+    .ex-num-value { font-size: 1.8rem; font-weight: 700; color: var(--text); }
+    .ex-num-value.tp { color: var(--success); }
+    .ex-num-value.fp { color: var(--danger); }
+    .ex-num-value.tn { color: var(--accent); }
+    .ex-num-value.fn { color: #b45309; }
+
+    .calc-step {
+      background: #fafaf8;
+      border-left: 3px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+      padding: 0.75rem 1rem;
+      margin: 0.6rem 0;
+      font-size: 0.9rem;
+    }
+    .calc-step code {
+      background: none;
+      border: none;
+      font-size: 0.88rem;
+      color: #1e3a8a;
+    }
+    .calc-result {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    /* ── Channel diagram ─────────────────────────────────── */
+    .channel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .channel-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+    .channel-card .channel-name {
+      font-family: 'SF Mono', 'Cascadia Code', monospace;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .channel-card .channel-pub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+    .channel-card .channel-purpose {
+      font-size: 0.88rem;
+      color: var(--text);
+    }
+
+    /* ── Footer ─────────────────────────────────────────── */
+    footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ─── Header ──────────────────────────────────────────────────────── -->
+  <h1>Performance Metrics Explained</h1>
+  <p class="subtitle">How IDS Effectiveness Is Measured — IoT Network Security System</p>
+  <p class="doc-meta">Source: <code>metrics/tracker.py</code> &nbsp;·&nbsp; Companion document: <em>offensive_module.html</em></p>
+
+  <!-- ─── Overview ────────────────────────────────────────────────────── -->
+  <h2>Overview</h2>
+  <p>
+    Saying "the IDS detected the attack" is not a measurement — it is an anecdote. A rigorous
+    evaluation requires knowing not only what the IDS caught, but also what it missed and what
+    legitimate traffic it incorrectly flagged. This document explains exactly how the Metrics
+    Tracker answers those questions.
+  </p>
+  <p>
+    The Metrics Tracker is a completely independent MQTT client. It has no access to the IDS's
+    internal state, no knowledge of detection rules, and imports nothing from the <code>security/</code>
+    package. It evaluates the IDS purely as a black box, by comparing two external streams:
+    what the offensive node says it attacked, and what the IDS says it detected.
+  </p>
+
+  <!-- ─── The Three Channels ───────────────────────────────────────────── -->
+  <h2>The Three Channels</h2>
+  <p>
+    The Metrics Tracker subscribes to exactly three MQTT topics and records events from each
+    independently:
+  </p>
+
+  <div class="channel-grid">
+    <div class="channel-card">
+      <div class="channel-name">home/#</div>
+      <div class="channel-pub">Published by: sensors, CPU, attackers</div>
+      <div class="channel-purpose">
+        <strong>Total message population.</strong> Every message on this wildcard is recorded with
+        its topic and timestamp. This forms the complete universe of events that will be classified
+        as TP, FP, TN, or FN.
+      </div>
+    </div>
+    <div class="channel-card">
+      <div class="channel-name">metrics/ground_truth</div>
+      <div class="channel-pub">Published by: offensive node only</div>
+      <div class="channel-purpose">
+        <strong>Attack labels.</strong> Each label carries the attack type, the topic that was
+        attacked, the payload, and a precise timestamp. This is the "true answer key".
+        The IDS never sees this topic.
+      </div>
+    </div>
+    <div class="channel-card">
+      <div class="channel-name">security/alert</div>
+      <div class="channel-pub">Published by: IDS Decision Engine</div>
+      <div class="channel-purpose">
+        <strong>IDS detections.</strong> Every SUSPICIOUS or THREAT verdict produces an alert on this
+        topic. The tracker records the alerted topic and its timestamp. These are the IDS's
+        "predictions".
+      </div>
+    </div>
+  </div>
+
+  <div class="diagram">
+    <svg viewBox="0 0 680 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:680px;display:block;margin:0 auto;">
+      <defs>
+        <marker id="ta" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0, 9 3.5, 0 7" fill="#6b7280"/></marker>
+        <marker id="ra" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0, 9 3.5, 0 7" fill="#b91c1c"/></marker>
+        <marker id="ga" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0, 9 3.5, 0 7" fill="#15803d"/></marker>
+        <marker id="ba" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0, 9 3.5, 0 7" fill="#1d4ed8"/></marker>
+      </defs>
+
+      <!-- Broker -->
+      <rect x="260" y="110" width="160" height="55" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+      <text x="340" y="133" text-anchor="middle" font-size="13" font-weight="600" fill="#0f172a">MQTT Broker</text>
+      <text x="340" y="152" text-anchor="middle" font-size="11" fill="#64748b">10.0.0.100</text>
+
+      <!-- Attacker -->
+      <rect x="20" y="35" width="145" height="50" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+      <text x="92" y="56" text-anchor="middle" font-size="12" font-weight="600" fill="#b91c1c">Attacker Node</text>
+      <text x="92" y="74" text-anchor="middle" font-size="10" fill="#ef4444">10.0.0.50</text>
+
+      <!-- Sensors -->
+      <rect x="20" y="115" width="145" height="50" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+      <text x="92" y="136" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">Sensors + CPU</text>
+      <text x="92" y="154" text-anchor="middle" font-size="10" fill="#64748b">legitimate traffic</text>
+
+      <!-- IDS -->
+      <rect x="20" y="200" width="145" height="50" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+      <text x="92" y="221" text-anchor="middle" font-size="12" font-weight="600" fill="#1e3a8a">IDS Node</text>
+      <text x="92" y="239" text-anchor="middle" font-size="10" fill="#3b82f6">10.0.0.99</text>
+
+      <!-- Metrics Tracker -->
+      <rect x="490" y="95" width="170" height="110" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="2"/>
+      <text x="575" y="120" text-anchor="middle" font-size="12" font-weight="600" fill="#15803d">Metrics Tracker</text>
+
+      <!-- Tracker labels -->
+      <text x="575" y="144" text-anchor="middle" font-size="10" fill="#64748b">① home/# messages</text>
+      <text x="575" y="162" text-anchor="middle" font-size="10" fill="#64748b">② ground truth events</text>
+      <text x="575" y="180" text-anchor="middle" font-size="10" fill="#64748b">③ security/alert events</text>
+
+      <!-- Attacker → Broker (ground truth) -->
+      <path d="M165 55 Q220 55 260 137" stroke="#b91c1c" stroke-width="1.5" fill="none" marker-end="url(#ra)" stroke-dasharray="5 3"/>
+      <text x="210" y="68" font-size="9" fill="#b91c1c">metrics/ground_truth</text>
+
+      <!-- Sensors → Broker -->
+      <line x1="165" y1="140" x2="258" y2="140" stroke="#6b7280" stroke-width="1.5" marker-end="url(#ta)"/>
+      <text x="204" y="133" text-anchor="middle" font-size="9" fill="#9ca3af">home/#</text>
+
+      <!-- IDS → Broker (alerts) -->
+      <path d="M165 215 Q220 215 260 155" stroke="#1d4ed8" stroke-width="1.5" fill="none" marker-end="url(#ba)"/>
+      <text x="210" y="210" font-size="9" fill="#1d4ed8">security/alert</text>
+
+      <!-- Broker → Metrics (all three channels) -->
+      <line x1="420" y1="137" x2="488" y2="150" stroke="#15803d" stroke-width="1.5" marker-end="url(#ga)"/>
+
+      <!-- Channel labels on tracker side -->
+      <text x="454" y="134" font-size="9" fill="#15803d">①②③</text>
+    </svg>
+    <figcaption>Fig. 1 — The Metrics Tracker observes three independent channels through the same broker, without any coupling to the IDS's internal logic.</figcaption>
+  </div>
+
+  <!-- ─── The Correlation Algorithm ────────────────────────────────────── -->
+  <h2>The Correlation Algorithm</h2>
+  <p>
+    Attack messages and IDS alerts do not arrive at exactly the same millisecond. There is latency
+    through the broker, IDS processing time, and the LLM call (if invoked). To account for this,
+    the tracker uses a <strong>±2-second time window</strong> to match events to messages.
+  </p>
+
+  <h3>Step-by-Step</h3>
+  <p>At shutdown, the tracker runs <code>compute_metrics()</code>, which does the following:</p>
+  <ol>
+    <li>Builds a lookup table: <code>topic → [sorted list of ground truth timestamps]</code></li>
+    <li>Builds a lookup table: <code>topic → [sorted list of IDS alert timestamps]</code></li>
+    <li>Iterates over every message seen on <code>home/#</code>. For each message <em>m</em> with topic <em>T</em> and timestamp <em>t</em>:
+      <ul>
+        <li><strong>is_attack</strong> = <code>True</code> if any ground truth timestamp for topic <em>T</em> falls within <em>t ± 2 s</em></li>
+        <li><strong>is_detected</strong> = <code>True</code> if any IDS alert timestamp for topic <em>T</em> falls within <em>t ± 2 s</em></li>
+      </ul>
+    </li>
+    <li>Classifies the message as TP, FP, TN, or FN based on those two booleans.</li>
+  </ol>
+
+  <div class="diagram">
+    <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;display:block;margin:0 auto;">
+      <defs>
+        <marker id="ta2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#475569"/></marker>
+      </defs>
+
+      <!-- Time axis -->
+      <line x1="40" y1="100" x2="660" y2="100" stroke="#cbd5e1" stroke-width="2" marker-end="url(#ta2)"/>
+      <text x="670" y="104" font-size="11" fill="#94a3b8">time</text>
+
+      <!-- Tick marks -->
+      <line x1="100" y1="95" x2="100" y2="105" stroke="#94a3b8" stroke-width="1"/>
+      <text x="100" y="120" text-anchor="middle" font-size="10" fill="#94a3b8">t−4s</text>
+      <line x1="200" y1="95" x2="200" y2="105" stroke="#94a3b8" stroke-width="1"/>
+      <text x="200" y="120" text-anchor="middle" font-size="10" fill="#94a3b8">t−2s</text>
+      <line x1="350" y1="95" x2="350" y2="105" stroke="#94a3b8" stroke-width="1"/>
+      <text x="350" y="120" text-anchor="middle" font-size="10" fill="#94a3b8">t₀ (attack)</text>
+      <line x1="500" y1="95" x2="500" y2="105" stroke="#94a3b8" stroke-width="1"/>
+      <text x="500" y="120" text-anchor="middle" font-size="10" fill="#94a3b8">t+2s</text>
+      <line x1="600" y1="95" x2="600" y2="105" stroke="#94a3b8" stroke-width="1"/>
+      <text x="600" y="120" text-anchor="middle" font-size="10" fill="#94a3b8">t+4s</text>
+
+      <!-- Correlation window (shaded) -->
+      <rect x="200" y="60" width="300" height="50" rx="4" fill="#dbeafe" fill-opacity="0.6" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="5 3"/>
+      <text x="350" y="50" text-anchor="middle" font-size="10.5" font-weight="600" fill="#1d4ed8">±2 s correlation window</text>
+
+      <!-- Ground truth event -->
+      <polygon points="350,98 343,80 357,80" fill="#b91c1c"/>
+      <text x="350" y="76" text-anchor="middle" font-size="9" fill="#b91c1c">GT event</text>
+
+      <!-- Message INSIDE window (match) -->
+      <circle cx="420" cy="100" r="5" fill="#15803d"/>
+      <text x="420" y="145" text-anchor="middle" font-size="9" fill="#15803d">msg A</text>
+      <text x="420" y="157" text-anchor="middle" font-size="9" fill="#15803d">is_attack=T</text>
+
+      <!-- IDS alert INSIDE window (detected) -->
+      <polygon points="410,100 403,70 417,70" fill="#1d4ed8" fill-opacity="0.7"/>
+      <text x="440" y="67" text-anchor="middle" font-size="9" fill="#1d4ed8">IDS alert</text>
+      <text x="440" y="78" text-anchor="middle" font-size="9" fill="#1d4ed8">is_detected=T</text>
+      <text x="428" y="90" font-size="12" fill="#15803d" font-weight="700">✓ TP</text>
+
+      <!-- Message OUTSIDE window (no match) -->
+      <circle cx="100" cy="100" r="5" fill="#6b7280"/>
+      <text x="100" y="145" text-anchor="middle" font-size="9" fill="#6b7280">msg B</text>
+      <text x="100" y="157" text-anchor="middle" font-size="9" fill="#6b7280">is_attack=F</text>
+      <text x="100" y="169" text-anchor="middle" font-size="9" fill="#1d4ed8">is_detected=F</text>
+      <text x="80" y="90" font-size="12" fill="#1d4ed8" font-weight="700">✓ TN</text>
+
+      <!-- Message INSIDE window but no IDS alert (FN) -->
+      <circle cx="280" cy="100" r="5" fill="#b45309"/>
+      <text x="280" y="145" text-anchor="middle" font-size="9" fill="#b45309">msg C</text>
+      <text x="280" y="157" text-anchor="middle" font-size="9" fill="#b45309">is_attack=T</text>
+      <text x="280" y="169" text-anchor="middle" font-size="9" fill="#6b7280">is_detected=F</text>
+      <text x="260" y="90" font-size="12" fill="#b45309" font-weight="700">✗ FN</text>
+    </svg>
+    <figcaption>Fig. 2 — The ±2 s window around each ground truth event. Message A falls inside and the IDS fired an alert → TP. Message B is outside and no alert fired → TN. Message C is inside but no alert was fired → FN (missed detection).</figcaption>
+  </div>
+
+  <div class="callout info">
+    <div class="callout-title">Why ±2 seconds?</div>
+    The IDS runs asynchronously: the LLM Analyzer (Gemini) is invoked in a background thread and
+    may take 0.5–1.5 seconds to return. A 2-second window comfortably absorbs this latency without
+    being so wide that it creates false correlations on busy topics.
+  </div>
+
+  <!-- ─── The Four Classification Outcomes ─────────────────────────────── -->
+  <h2>The Four Classification Outcomes</h2>
+  <p>
+    Every message on <code>home/#</code> is independently classified into one of four categories
+    based on two binary questions: <em>Was this actually an attack?</em> and
+    <em>Did the IDS raise an alert?</em>
+  </p>
+
+  <div class="cm-wrapper">
+    <div>
+      <!-- Labels above -->
+      <div style="display:grid;grid-template-columns:120px 1fr;margin-bottom:8px;">
+        <div></div>
+        <div style="text-align:center;font-size:0.82rem;font-weight:600;color:var(--text-muted);letter-spacing:0.04em;text-transform:uppercase;">IDS Prediction</div>
+      </div>
+      <div style="display:grid;grid-template-columns:auto auto auto;gap:4px;align-items:center;">
+        <!-- Row labels left -->
+        <div style="writing-mode:vertical-lr;transform:rotate(180deg);text-align:center;font-size:0.82rem;font-weight:600;color:var(--text-muted);letter-spacing:0.04em;text-transform:uppercase;padding:0 4px;">Ground Truth</div>
+        <!-- Inner grid (2×3: header + 2 rows) -->
+        <div style="display:grid;grid-template-columns:120px 1fr 1fr;grid-template-rows:auto auto auto;gap:4px;">
+          <!-- Headers -->
+          <div></div>
+          <div class="cm-col-head">Alert Fired<br><small style="font-weight:400;">(Predicted: Attack)</small></div>
+          <div class="cm-col-head">No Alert<br><small style="font-weight:400;">(Predicted: Normal)</small></div>
+          <!-- Row 1 -->
+          <div class="cm-row-head">Actual<br>Attack</div>
+          <div class="cm-cell cm-tp">
+            <span class="cm-abbr">TP</span>
+            <span class="cm-name">True Positive</span>
+            <span class="cm-desc">Attack correctly detected</span>
+          </div>
+          <div class="cm-cell cm-fn">
+            <span class="cm-abbr">FN</span>
+            <span class="cm-name">False Negative</span>
+            <span class="cm-desc">Attack missed by IDS</span>
+          </div>
+          <!-- Row 2 -->
+          <div class="cm-row-head">Actual<br>Normal</div>
+          <div class="cm-cell cm-fp">
+            <span class="cm-abbr">FP</span>
+            <span class="cm-name">False Positive</span>
+            <span class="cm-desc">False alarm on legit traffic</span>
+          </div>
+          <div class="cm-cell cm-tn">
+            <span class="cm-abbr">TN</span>
+            <span class="cm-name">True Negative</span>
+            <span class="cm-desc">Legit traffic correctly passed</span>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+
+  <p>
+    The total of all four cells always equals the total number of messages observed on <code>home/#</code>:
+  </p>
+  <p style="text-align:center;font-size:1.05rem;font-style:italic;color:#1e3a8a;padding:0.5rem;">
+    TP + FP + TN + FN = total messages observed
+  </p>
+
+  <!-- ─── Metric Definitions ────────────────────────────────────────────── -->
+  <h2>Metric Definitions</h2>
+
+  <!-- Accuracy -->
+  <div class="formula-block">
+    <h3>Accuracy</h3>
+    <p>
+      The fraction of all messages that the IDS classified correctly — both attacks it correctly
+      flagged <em>and</em> legitimate traffic it correctly passed through.
+    </p>
+    <div class="formula-line">
+      <span class="formula-eq">Accuracy = </span>
+      <span class="frac-wrap">
+        <span class="frac-num">TP + TN</span>
+        <span class="frac-den">TP + TN + FP + FN</span>
+      </span>
+    </div>
+    <div class="formula-meta">
+      <span class="formula-meta-key">Numerator</span>
+      <span class="formula-meta-val">All correct decisions — attacks detected (TP) plus normal traffic passed (TN)</span>
+      <span class="formula-meta-key">Denominator</span>
+      <span class="formula-meta-val">Every message ever seen — the complete observation set</span>
+      <span class="formula-meta-key">Range</span>
+      <span class="formula-meta-val">0.0 (every message misclassified) to 1.0 (perfect classification)</span>
+      <span class="formula-meta-key">Limitation</span>
+      <span class="formula-meta-val">Can be misleadingly high if attacks are rare (e.g., 5 attacks in 1000 messages — ignoring all attacks still gives 99.5% accuracy)</span>
+    </div>
+    <div class="formula-example">
+      <div class="formula-example-title">Quick example</div>
+      <span class="example-calc">TP=35, TN=157, FP=3, FN=5 → Accuracy = (35+157) / (35+157+3+5) = 192/200 = <strong>96.0%</strong></span>
+    </div>
+  </div>
+
+  <!-- Precision -->
+  <div class="formula-block">
+    <h3>Precision</h3>
+    <p>
+      Of all the messages the IDS raised an alert on, what fraction were genuine attacks?
+      High precision means when the IDS fires, it is usually right — few false alarms.
+    </p>
+    <div class="formula-line">
+      <span class="formula-eq">Precision = </span>
+      <span class="frac-wrap">
+        <span class="frac-num">TP</span>
+        <span class="frac-den">TP + FP</span>
+      </span>
+    </div>
+    <div class="formula-meta">
+      <span class="formula-meta-key">Numerator</span>
+      <span class="formula-meta-val">Alerts that were correct (real attacks)</span>
+      <span class="formula-meta-key">Denominator</span>
+      <span class="formula-meta-val">All alerts fired — correct ones plus false alarms</span>
+      <span class="formula-meta-key">Range</span>
+      <span class="formula-meta-val">0.0 (every alert is a false alarm) to 1.0 (every alert is a real attack)</span>
+      <span class="formula-meta-key">Practical meaning</span>
+      <span class="formula-meta-val">Low precision → operator alert fatigue; too many false alarms cause legitimate alerts to be ignored</span>
+    </div>
+    <div class="formula-example">
+      <div class="formula-example-title">Quick example</div>
+      <span class="example-calc">TP=35, FP=3 → Precision = 35 / (35+3) = 35/38 ≈ <strong>92.1%</strong></span>
+      <br><span class="example-calc" style="color:#64748b;">The IDS raised 38 alerts total. 35 were real attacks, 3 were false alarms.</span>
+    </div>
+  </div>
+
+  <!-- Recall -->
+  <div class="formula-block">
+    <h3>Recall (Sensitivity / Detection Rate)</h3>
+    <p>
+      Of all the actual attacks that occurred, what fraction did the IDS successfully detect?
+      High recall means few attacks slip through undetected.
+    </p>
+    <div class="formula-line">
+      <span class="formula-eq">Recall = </span>
+      <span class="frac-wrap">
+        <span class="frac-num">TP</span>
+        <span class="frac-den">TP + FN</span>
+      </span>
+    </div>
+    <div class="formula-meta">
+      <span class="formula-meta-key">Numerator</span>
+      <span class="formula-meta-val">Attacks that were detected</span>
+      <span class="formula-meta-key">Denominator</span>
+      <span class="formula-meta-val">All attacks that actually occurred — detected ones plus those that were missed</span>
+      <span class="formula-meta-key">Range</span>
+      <span class="formula-meta-val">0.0 (no attacks detected) to 1.0 (every attack caught)</span>
+      <span class="formula-meta-key">Practical meaning</span>
+      <span class="formula-meta-val">Low recall → attackers succeed undetected; in security contexts, recall (catching attacks) is often more important than precision</span>
+    </div>
+    <div class="formula-example">
+      <div class="formula-example-title">Quick example</div>
+      <span class="example-calc">TP=35, FN=5 → Recall = 35 / (35+5) = 35/40 = <strong>87.5%</strong></span>
+      <br><span class="example-calc" style="color:#64748b;">40 attack messages occurred. The IDS caught 35 of them, missed 5.</span>
+    </div>
+  </div>
+
+  <!-- F1 Score -->
+  <div class="formula-block">
+    <h3>F1 Score</h3>
+    <p>
+      The harmonic mean of Precision and Recall. It captures both concerns in a single number —
+      useful when you want a balanced view of an IDS that must minimise both false alarms
+      <em>and</em> missed detections simultaneously.
+    </p>
+    <div class="formula-line">
+      <span class="formula-eq">F1 = 2 × </span>
+      <span class="frac-wrap">
+        <span class="frac-num">Precision × Recall</span>
+        <span class="frac-den">Precision + Recall</span>
+      </span>
+    </div>
+    <p style="margin-top:1rem;">
+      This is equivalent to the harmonic mean of the two values. It penalises extreme imbalances
+      more severely than the arithmetic mean would. For example, Precision = 1.0 and Recall = 0.5
+      gives an arithmetic average of 0.75 but an F1 of only 0.667 — correctly reflecting that
+      missing half the attacks is a serious problem even if every alert fired is accurate.
+    </p>
+    <p>The F1 can also be expressed directly in terms of the confusion matrix:</p>
+    <div class="formula-line">
+      <span class="formula-eq">F1 = </span>
+      <span class="frac-wrap">
+        <span class="frac-num">2 × TP</span>
+        <span class="frac-den">2 × TP + FP + FN</span>
+      </span>
+    </div>
+    <div class="formula-meta">
+      <span class="formula-meta-key">Range</span>
+      <span class="formula-meta-val">0.0 (worst) to 1.0 (perfect precision and recall)</span>
+      <span class="formula-meta-key">Practical meaning</span>
+      <span class="formula-meta-val">F1 is the go-to summary metric for IDS evaluation; it degrades sharply if either FP or FN is high</span>
+    </div>
+    <div class="formula-example">
+      <div class="formula-example-title">Quick example</div>
+      <span class="example-calc">Precision=0.921, Recall=0.875 → F1 = 2 × (0.921 × 0.875) / (0.921 + 0.875)</span>
+      <br><span class="example-calc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 2 × 0.8059 / 1.796 = 1.612 / 1.796 ≈ <strong>89.7%</strong></span>
+    </div>
+  </div>
+
+  <!-- ─── Precision vs. Recall Trade-off ───────────────────────────────── -->
+  <h2>The Precision–Recall Trade-off</h2>
+  <p>
+    Precision and Recall naturally pull against each other. An IDS can be tuned to detect more
+    attacks (higher Recall) by lowering its detection threshold — but this also increases false alarms
+    (lower Precision). Conversely, a very conservative IDS raises fewer alarms (higher Precision) but
+    misses more attacks (lower Recall).
+  </p>
+
+  <table>
+    <thead><tr><th>Scenario</th><th>Precision</th><th>Recall</th><th>Interpretation</th></tr></thead>
+    <tbody>
+      <tr><td>IDS detects everything (even legitimate traffic)</td><td>Low</td><td>High (≈ 1.0)</td><td>Too many false alarms — unusable in practice</td></tr>
+      <tr><td>IDS detects only 100%-certain attacks</td><td>High (≈ 1.0)</td><td>Low</td><td>Misses subtle or novel attacks</td></tr>
+      <tr><td>Balanced IDS (good F1)</td><td>High</td><td>High</td><td>Both metrics above ~0.85 — practically useful</td></tr>
+      <tr><td>IDS offline / broken</td><td>N/A (0 alerts)</td><td>0.0</td><td>No alerts → all attacks are FN, TP=0</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ─── Per-Attack Detection Rate ────────────────────────────────────── -->
+  <h2>Per-Attack Detection Rate</h2>
+  <p>
+    In addition to the overall confusion matrix, the tracker computes a per-attack-type detection
+    rate. This uses the <code>metrics/ground_truth</code> events directly (not the <code>home/#</code>
+    messages) as the unit of measurement:
+  </p>
+  <div class="formula-line" style="margin:1rem 0;">
+    <span class="formula-eq">Detection Rate<sub>type</sub> = </span>
+    <span class="frac-wrap">
+      <span class="frac-num">attacks of type T detected by IDS</span>
+      <span class="frac-den">attacks of type T sent by attacker</span>
+    </span>
+  </div>
+  <p>
+    For each ground truth event of a given type, the tracker checks whether the IDS fired an alert
+    on the same topic within ±2 seconds. This gives a direct answer to questions like
+    "what percentage of injection attacks did the IDS catch?"
+  </p>
+
+  <div class="callout warning">
+    <div class="callout-title">Unit Difference</div>
+    The confusion matrix counts <code>home/#</code> <strong>messages</strong> as its unit.
+    The per-attack detection rate counts <strong>ground truth events</strong> as its unit.
+    These are different: one attack event may correspond to multiple messages in a flooding scenario.
+    Both views are useful; they answer different questions.
+  </div>
+
+  <!-- ─── Worked Example ────────────────────────────────────────────────── -->
+  <h2>Worked Example</h2>
+  <p>
+    The following is a concrete end-to-end walk-through using realistic numbers from a
+    3-minute test session covering all five MQTT attack types.
+  </p>
+
+  <div class="example-section">
+    <h3>Session Input Data</h3>
+    <p style="margin-bottom:1rem;">After the test, the tracker holds these raw records:</p>
+
+    <div class="example-numbers">
+      <div class="ex-num">
+        <div class="ex-num-label">Total home/# msgs</div>
+        <div class="ex-num-value">200</div>
+      </div>
+      <div class="ex-num">
+        <div class="ex-num-label">Ground truth events</div>
+        <div class="ex-num-value" style="color:#b45309;">40</div>
+      </div>
+      <div class="ex-num">
+        <div class="ex-num-label">IDS alerts fired</div>
+        <div class="ex-num-value" style="color:#1d4ed8;">38</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="example-section">
+    <h3>Step 1 — Classify Each Message</h3>
+    <p>
+      For each of the 200 messages, the tracker checks both the ground truth index and the alert index
+      using the ±2 s window. The results:
+    </p>
+
+    <div class="example-numbers">
+      <div class="ex-num">
+        <div class="ex-num-label">True Positive</div>
+        <div class="ex-num-value tp">35</div>
+        <div class="ex-num-label" style="margin-top:0.3rem;font-size:0.7rem;">attack &amp; alert</div>
+      </div>
+      <div class="ex-num">
+        <div class="ex-num-label">False Negative</div>
+        <div class="ex-num-value fn">5</div>
+        <div class="ex-num-label" style="margin-top:0.3rem;font-size:0.7rem;">attack, no alert</div>
+      </div>
+      <div class="ex-num">
+        <div class="ex-num-label">False Positive</div>
+        <div class="ex-num-value fp">3</div>
+        <div class="ex-num-label" style="margin-top:0.3rem;font-size:0.7rem;">alert, no attack</div>
+      </div>
+      <div class="ex-num">
+        <div class="ex-num-label">True Negative</div>
+        <div class="ex-num-value tn">157</div>
+        <div class="ex-num-label" style="margin-top:0.3rem;font-size:0.7rem;">normal &amp; no alert</div>
+      </div>
+    </div>
+
+    <p style="margin-top:1rem;">Sanity check: <code>35 + 5 + 3 + 157 = 200 ✓</code></p>
+    <p>
+      The 5 FNs are the replayed messages — the replay attack produces valid payloads that only
+      fail the rate-limit check, which the IDS flagged as SUSPICIOUS (severity 4–6) rather
+      than THREAT, so some didn't reach the alert threshold.
+      The 3 FPs are legitimate sensor readings that arrived just after a spoofing burst on the
+      same topic, falling inside the alert's time window.
+    </p>
+  </div>
+
+  <div class="example-section">
+    <h3>Step 2 — Compute the Metrics</h3>
+
+    <div class="calc-step">
+      <strong>Accuracy</strong><br>
+      <code>(TP + TN) / total = (35 + 157) / 200 = 192 / 200 =</code>
+      <span class="calc-result"> 0.9600 → 96.0%</span>
+    </div>
+
+    <div class="calc-step">
+      <strong>Precision</strong><br>
+      <code>TP / (TP + FP) = 35 / (35 + 3) = 35 / 38 ≈</code>
+      <span class="calc-result"> 0.9211 → 92.1%</span><br>
+      <span style="color:var(--text-muted);font-size:0.88rem;">The IDS raised 38 alerts. 35 were genuine. 3 were false alarms.</span>
+    </div>
+
+    <div class="calc-step">
+      <strong>Recall</strong><br>
+      <code>TP / (TP + FN) = 35 / (35 + 5) = 35 / 40 =</code>
+      <span class="calc-result"> 0.8750 → 87.5%</span><br>
+      <span style="color:var(--text-muted);font-size:0.88rem;">40 attack messages occurred. The IDS detected 35, missed 5.</span>
+    </div>
+
+    <div class="calc-step">
+      <strong>F1 Score</strong><br>
+      <code>2 × (0.9211 × 0.8750) / (0.9211 + 0.8750)</code><br>
+      <code>= 2 × 0.8060 / 1.7961</code><br>
+      <code>= 1.6120 / 1.7961 ≈</code>
+      <span class="calc-result"> 0.8975 → 89.8%</span>
+    </div>
+  </div>
+
+  <div class="example-section">
+    <h3>Step 3 — Per-Attack Detection Rate</h3>
+    <p>
+      The tracker separately iterates over all 40 ground truth events, grouped by attack type,
+      and checks whether an IDS alert fired for that topic within ±2 s:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Attack Type</th>
+          <th>GT Events Sent</th>
+          <th>Detected by IDS</th>
+          <th>Detection Rate</th>
+          <th>Primary Rule Triggered</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>spoofing</td>
+          <td>10</td>
+          <td>10</td>
+          <td style="color:var(--success);font-weight:600;">100.0%</td>
+          <td><code>value_range</code> sev 8</td>
+        </tr>
+        <tr>
+          <td>flooding</td>
+          <td>12</td>
+          <td>12</td>
+          <td style="color:var(--success);font-weight:600;">100.0%</td>
+          <td>Firewall rate limit</td>
+        </tr>
+        <tr>
+          <td>injection</td>
+          <td>8</td>
+          <td>8</td>
+          <td style="color:var(--success);font-weight:600;">100.0%</td>
+          <td><code>direct_actuator_access</code> sev 9</td>
+        </tr>
+        <tr>
+          <td>replay</td>
+          <td>6</td>
+          <td>4</td>
+          <td style="color:#b45309;font-weight:600;">66.7%</td>
+          <td>Rate limit · <code>suspicious_pattern</code></td>
+        </tr>
+        <tr>
+          <td>malformed</td>
+          <td>4</td>
+          <td>1</td>
+          <td style="color:var(--danger);font-weight:600;">25.0%</td>
+          <td><code>payload_integrity</code> sev 4–7</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      Injection and spoofing are detected at 100% because their primary rules assign severity ≥ 7
+      immediately, bypassing any threshold ambiguity. Replay is harder because replayed payloads
+      <em>look legitimate</em> — only the frequency is abnormal, and the rate-limit window may not
+      have filled yet on every message. Malformed payloads are the hardest: some patterns only reach
+      severity 4 (SUSPICIOUS, not THREAT), so they don't always reach the <code>security/alert</code>
+      channel that the Metrics Tracker watches.
+    </p>
+  </div>
+
+  <!-- ─── Reading the HTML Report ──────────────────────────────────────── -->
+  <h2>Reading the Generated HTML Report</h2>
+  <p>
+    At shutdown (<kbd>Ctrl+C</kbd>), the tracker calls <code>compute_metrics()</code>, prints results
+    to stdout, and saves an HTML report to <code>reports_output/metrics_YYYYMMDD_HHMMSS.html</code>.
+    The report contains:
+  </p>
+  <ul>
+    <li><strong>Session totals</strong> — message count, ground truth events, alerts fired</li>
+    <li><strong>Confusion matrix</strong> — colour-coded TP/FP/TN/FN grid</li>
+    <li><strong>Metric cards</strong> — Accuracy, Precision, Recall, F1 with colour scale (green ≥ 90%, amber ≥ 70%, red below)</li>
+    <li><strong>Per-attack breakdown table</strong> — detection rate for each attack type</li>
+  </ul>
+
+  <div class="callout success">
+    <div class="callout-title">Interpreting the Results</div>
+    <p style="margin-bottom:0.5rem;">A healthy IDS in this system should show:</p>
+    <ul style="margin-bottom:0;">
+      <li><strong>Accuracy &gt; 95%</strong> — most messages are legitimate and correctly left alone</li>
+      <li><strong>Precision &gt; 85%</strong> — alerts are trustworthy, low false alarm rate</li>
+      <li><strong>Recall &gt; 80%</strong> — most attacks are caught; some replay/malformed may slip below threshold</li>
+      <li><strong>F1 &gt; 85%</strong> — a balanced indicator of overall detection quality</li>
+    </ul>
+  </div>
+
+  <footer>
+    IoT Network Security System — Metrics Reference &nbsp;|&nbsp;
+    Source: <code>metrics/tracker.py</code> &nbsp;|&nbsp;
+    Correlation window: ±2 s &nbsp;|&nbsp;
+    Unit of measurement: individual <code>home/#</code> messages
+  </footer>
+
+</div>
+</body>
+</html>
