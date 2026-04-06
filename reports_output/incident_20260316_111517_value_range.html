@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Incident Report - THREAT-20260316111517969007</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f1117; color: #e1e4e8; line-height: 1.6; padding: 2rem; }
+  .container { max-width: 960px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #1a1e2e, #2d1f3d); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; border-left: 4px solid #d29922; }
+  .header h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .header .meta { color: #8b949e; font-size: 0.9rem; }
+  .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
+  .badge-critical { background: #da3633; color: #fff; }
+  .badge-high { background: #d29922; color: #000; }
+  .badge-medium { background: #e3b341; color: #000; }
+  .badge-low { background: #3fb950; color: #000; }
+  .badge-info { background: #58a6ff; color: #000; }
+  .card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .card h2 { font-size: 1.15rem; margin-bottom: 1rem; color: #58a6ff; border-bottom: 1px solid #21262d; padding-bottom: 0.5rem; }
+  .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .detail-item { background: #0d1117; padding: 0.75rem 1rem; border-radius: 6px; border: 1px solid #21262d; }
+  .detail-item .label { font-size: 0.75rem; color: #8b949e; text-transform: uppercase; letter-spacing: 0.05em; }
+  .detail-item .value { font-size: 0.95rem; margin-top: 0.25rem; word-break: break-all; }
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before { content: ''; position: absolute; left: 0.5rem; top: 0; bottom: 0; width: 2px; background: #30363d; }
+  .timeline-item { position: relative; margin-bottom: 1.25rem; }
+  .timeline-item::before { content: ''; position: absolute; left: -1.65rem; top: 0.4rem; width: 10px; height: 10px; border-radius: 50%; background: #58a6ff; border: 2px solid #161b22; }
+  .timeline-item.threat::before { background: #da3633; }
+  .timeline-item.action::before { background: #3fb950; }
+  .timeline-item .time { font-size: 0.8rem; color: #8b949e; }
+  .timeline-item .desc { margin-top: 0.2rem; }
+  .rules-list { list-style: none; }
+  .rules-list li { padding: 0.6rem 0; border-bottom: 1px solid #21262d; }
+  .rules-list li:last-child { border-bottom: none; }
+  .rule-name { color: #f0883e; font-weight: 600; }
+  .rule-detail { color: #c9d1d9; font-size: 0.9rem; }
+  .llm-box { background: #0d1117; border: 1px solid #238636; border-radius: 8px; padding: 1.25rem; margin-top: 0.75rem; }
+  .llm-box .source { font-size: 0.75rem; color: #3fb950; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .action-box { background: #0d1117; border: 1px solid #d29922; border-radius: 8px; padding: 1rem; }
+  .action-box code { background: #161b22; padding: 0.15rem 0.4rem; border-radius: 4px; font-family: 'Consolas', monospace; color: #f0883e; }
+  .mitigation-list { list-style: none; counter-reset: step; }
+  .mitigation-list li { counter-increment: step; padding: 0.5rem 0; padding-left: 2rem; position: relative; }
+  .mitigation-list li::before { content: counter(step); position: absolute; left: 0; top: 0.5rem; width: 1.5rem; height: 1.5rem; background: #21262d; border-radius: 50%; text-align: center; font-size: 0.8rem; line-height: 1.5rem; color: #58a6ff; }
+  .footer { text-align: center; color: #484f58; font-size: 0.8rem; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #21262d; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>Incident Report <span class="badge badge-high">HIGH</span></h1>
+    <div class="meta">
+      ID: THREAT-20260316111517969007 &bull; Detected: 2026-03-16 11:15:17.969
+       &bull; Healed: 2026-03-16T11:15:17.972216
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Threat Details</h2>
+    <div class="detail-grid">
+      <div class="detail-item">
+        <div class="label">Source IP</div>
+        <div class="value">10.0.0.7</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Client ID</div>
+        <div class="value">smart-plug-sensor</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">MQTT Topic</div>
+        <div class="value">home/smart-plug/data</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Severity Score</div>
+        <div class="value">8 / 10</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Confidence</div>
+        <div class="value">95%</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Decision</div>
+        <div class="value">THREAT</div>
+      </div>
+    </div>
+    <div class="detail-item" style="margin-top: 0.75rem;">
+      <div class="label">Payload</div>
+      <div class="value" style="font-family: Consolas, monospace; color: #f0883e;">kzdPJW5CBnJjtuq8Lxth69ZQGOiLkkzrNurmkot5tvexnAH3kAE85zYdlC3wVZ8obcUSAEnzoscN9yEjcnBKxV7q3zoUAEcK8RmbkE65TdoPQtBaxdNHOOqAXUIs47vanyjEKEDcEtZUjHKEKu7lSlcPCBCvj7CNA2Vq5uO86SXTm0D3qtcjBuU9TKTQ</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Rules Triggered</h2>
+    <ul class="rules-list">
+      
+      <li>
+        <span class="rule-name">value_range</span>
+        (severity: 8, confidence: 90%)
+        <div class="rule-detail">Value &#39;kzdPJW5CBnJjtuq8Lxth69ZQGOiLkkzrNurmkot5tvexnAH3kAE85zYdlC3wVZ8obcUSAEnzoscN9yEjcnBKxV7q3zoUAEcK8RmbkE65TdoPQtBaxdNHOOqAXUIs47vanyjEKEDcEtZUjHKEKu7lSlcPCBCvj7CNA2Vq5uO86SXTm0D3qtcjBuU9TKTQ&#39; not in allowed set [&#39;on&#39;, &#39;off&#39;] for smart-plug</div>
+      </li>
+      
+      <li>
+        <span class="rule-name">firewall</span>
+        (severity: 6, confidence: 80%)
+        <div class="rule-detail">Rate limit exceeded for &#39;smart-plug-sensor&#39;: 18/15 msgs in 60s window</div>
+      </li>
+      
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Timeline</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="time">2026-03-16 11:14:22.121</div>
+        <div class="desc">Packet received on topic <strong>home/smart-plug/data</strong></div>
+      </div>
+      <div class="timeline-item threat">
+        <div class="time">2026-03-16 11:15:17.969</div>
+        <div class="desc">Threat detected &mdash; 2 rule(s) triggered (severity 8)</div>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="time">2026-03-16T11:15:17.968680</div>
+        <div class="desc">LLM analysis completed (source: gemini)</div>
+      </div>
+      
+      
+      <div class="timeline-item action">
+        <div class="time">2026-03-16T11:15:17.972216</div>
+        <div class="desc">Self-healing action executed: <strong>Isolate the device (10.0.0.7) from the network immediately by blocking its traffic at the firewall.</strong> on smart-plug-sensor</div>
+      </div>
+      
+    </div>
+  </div>
+
+  
+  <div class="card">
+    <h2>LLM Analysis</h2>
+    <div class="llm-box">
+      <div class="source">gemini analysis</div>
+      <p><strong>Threat Level:</strong> high</p>
+      <p><strong>Threat Type:</strong> data_manipulation</p>
+      <p style="margin-top: 0.5rem;">The smart plug is sending payloads that do not conform to the expected &#39;on&#39; or &#39;off&#39; values. This, coupled with the high message rate, indicates a possible compromise. The device may be infected with malware that is manipulating its behavior. While the device itself may not be highly sensitive, unauthorized remote control of devices on a network can enable other, more damaging attacks. The high message rate could also indicate the device is being used to amplify a distributed denial-of-service (DDoS) attack on the MQTT broker.</p>
+    </div>
+  </div>
+  
+
+  
+  <div class="card">
+    <h2>Action Taken &amp; Self-Healing</h2>
+    <div class="action-box">
+      <p><strong>Primary Action:</strong> <code>Isolate the device (10.0.0.7) from the network immediately by blocking its traffic at the firewall.</code></p>
+      <p><strong>Target Device:</strong> smart-plug-sensor</p>
+      
+      <p><strong>Duration:</strong> 300s</p>
+      <p><strong>Reason:</strong> Value &#39;kzdPJW5CBnJjtuq8Lxth69ZQGOiLkkzrNurmkot5tvexnAH3kAE85zYdlC3wVZ8obcUSAEnzoscN9yEjcnBKxV7q3zoUAEcK8RmbkE65TdoPQtBaxdNHOOqAXUIs47vanyjEKEDcEtZUjHKEKu7lSlcPCBCvj7CNA2Vq5uO86SXTm0D3qtcjBuU9TKTQ&#39; not in allowed set [&#39;on&#39;, &#39;off&#39;] for smart-plug</p>
+    </div>
+  </div>
+  
+
+  <div class="card">
+    <h2>Recommended Mitigation Steps</h2>
+    <ol class="mitigation-list">
+      
+      <li>Review the incident details and determine appropriate response.</li>
+      
+      <li>Monitor the source device for further suspicious activity.</li>
+      
+      <li>Update detection rules if this is a new attack pattern.</li>
+      
+    </ol>
+  </div>
+
+  <div class="footer">
+    IoT Network Security System &mdash; Incident Report &mdash; Generated 2026-03-16 11:15:17
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IDS Summary Report - 2026-04-06</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f1117; color: #e1e4e8; line-height: 1.6; padding: 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #1a1e2e, #1f2d1a); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; text-align: center; }
+  .header h1 { font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .header .sub { color: #8b949e; }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+  .stat-card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 1.25rem; text-align: center; }
+  .stat-card .num { font-size: 2rem; font-weight: 700; }
+  .stat-card .label { font-size: 0.85rem; color: #8b949e; margin-top: 0.25rem; }
+  .num-critical { color: #da3633; }
+  .num-high { color: #d29922; }
+  .num-medium { color: #e3b341; }
+  .num-safe { color: #3fb950; }
+  .card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .card h2 { font-size: 1.15rem; color: #58a6ff; border-bottom: 1px solid #21262d; padding-bottom: 0.5rem; margin-bottom: 1rem; }
+  table { width: 100%; border-collapse: collapse; }
+  th { background: #0d1117; text-align: left; padding: 0.6rem 0.8rem; font-size: 0.8rem; color: #8b949e; text-transform: uppercase; letter-spacing: 0.05em; }
+  td { padding: 0.6rem 0.8rem; border-top: 1px solid #21262d; font-size: 0.9rem; }
+  tr:hover td { background: #1c2128; }
+  .badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
+  .badge-critical { background: #da3633; color: #fff; }
+  .badge-high { background: #d29922; color: #000; }
+  .badge-medium { background: #e3b341; color: #000; }
+  .badge-low { background: #3fb950; color: #000; }
+  .footer { text-align: center; color: #484f58; font-size: 0.8rem; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #21262d; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>IDS Summary Report</h1>
+    <div class="sub">2026-04-06 &bull; 82 incident(s) recorded</div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="num num-critical">0</div>
+      <div class="label">Critical</div>
+    </div>
+    <div class="stat-card">
+      <div class="num num-high">55</div>
+      <div class="label">High</div>
+    </div>
+    <div class="stat-card">
+      <div class="num num-medium">27</div>
+      <div class="label">Medium</div>
+    </div>
+    <div class="stat-card">
+      <div class="num num-safe">0</div>
+      <div class="label">Low / Info</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Incident Log</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>ID</th>
+          <th>Severity</th>
+          <th>Source</th>
+          <th>Topic</th>
+          <th>Decision</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td>2026-04-06 23:30:04.037</td>
+          <td>THREAT-20260406233004037398</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>Smoke-Gas-Sensor-sensor</td>
+          <td>home/Smoke-Gas-Sensor/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:05.036</td>
+          <td>THREAT-20260406233005036015</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>Smoke-Gas-Sensor-sensor</td>
+          <td>home/Smoke-Gas-Sensor/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:06.035</td>
+          <td>THREAT-20260406233006035724</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:07.036</td>
+          <td>THREAT-20260406233007036490</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:08.036</td>
+          <td>THREAT-20260406233008036163</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:09.036</td>
+          <td>THREAT-20260406233009036685</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:10.037</td>
+          <td>THREAT-20260406233010037255</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:11.037</td>
+          <td>THREAT-20260406233011037904</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:12.038</td>
+          <td>THREAT-20260406233012038390</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:13.037</td>
+          <td>THREAT-20260406233013037882</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:14.038</td>
+          <td>THREAT-20260406233014038198</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:15.038</td>
+          <td>THREAT-20260406233015038769</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>Smoke-Gas-Sensor-sensor</td>
+          <td>home/Smoke-Gas-Sensor/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:16.038</td>
+          <td>THREAT-20260406233016038887</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>Smoke-Gas-Sensor-sensor</td>
+          <td>home/Smoke-Gas-Sensor/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:17.039</td>
+          <td>THREAT-20260406233017039657</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:18.040</td>
+          <td>THREAT-20260406233018040141</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:24.049</td>
+          <td>THREAT-20260406233024048995</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:24.095</td>
+          <td>THREAT-20260406233024095006</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:24.148</td>
+          <td>THREAT-20260406233024148864</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:24.201</td>
+          <td>THREAT-20260406233024201605</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:24.252</td>
+          <td>THREAT-20260406233024252952</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:24.301</td>
+          <td>THREAT-20260406233024301162</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:24.350</td>
+          <td>THREAT-20260406233024350389</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:24.397</td>
+          <td>THREAT-20260406233024397191</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:24.445</td>
+          <td>THREAT-20260406233024445391</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:24.521</td>
+          <td>THREAT-20260406233024521757</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:24.529</td>
+          <td>THREAT-20260406233024529516</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:24.581</td>
+          <td>THREAT-20260406233024581242</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:24.589</td>
+          <td>THREAT-20260406233024589445</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:24.637</td>
+          <td>THREAT-20260406233024637346</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:24.685</td>
+          <td>THREAT-20260406233024685611</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:24.691</td>
+          <td>THREAT-20260406233024691936</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:24.733</td>
+          <td>THREAT-20260406233024733154</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:24.781</td>
+          <td>THREAT-20260406233024781445</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:24.824</td>
+          <td>THREAT-20260406233024824130</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:24.824</td>
+          <td>THREAT-20260406233024824592</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:24.913</td>
+          <td>THREAT-20260406233024913374</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:24.990</td>
+          <td>THREAT-20260406233024990634</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:25.041</td>
+          <td>THREAT-20260406233025041009</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:25.090</td>
+          <td>THREAT-20260406233025090145</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:25.099</td>
+          <td>THREAT-20260406233025099449</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:25.159</td>
+          <td>THREAT-20260406233025159125</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:25.205</td>
+          <td>THREAT-20260406233025205151</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:25.253</td>
+          <td>THREAT-20260406233025253481</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:25.296</td>
+          <td>THREAT-20260406233025296171</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:25.342</td>
+          <td>THREAT-20260406233025342742</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:25.394</td>
+          <td>THREAT-20260406233025394058</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:25.401</td>
+          <td>THREAT-20260406233025401740</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:25.442</td>
+          <td>THREAT-20260406233025442919</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:25.489</td>
+          <td>THREAT-20260406233025489267</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>light-sensor</td>
+          <td>home/lighting/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:25.536</td>
+          <td>THREAT-20260406233025536934</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:25.537</td>
+          <td>THREAT-20260406233025537875</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:25.566</td>
+          <td>THREAT-20260406233025566619</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:25.666</td>
+          <td>THREAT-20260406233025666361</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:25.717</td>
+          <td>THREAT-20260406233025717124</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:25.801</td>
+          <td>THREAT-20260406233025801313</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:25.849</td>
+          <td>THREAT-20260406233025849627</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:25.897</td>
+          <td>THREAT-20260406233025897367</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:25.945</td>
+          <td>THREAT-20260406233025945415</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:25.993</td>
+          <td>THREAT-20260406233025993406</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:26.045</td>
+          <td>THREAT-20260406233026045226</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:26.045</td>
+          <td>THREAT-20260406233026045753</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:26.093</td>
+          <td>THREAT-20260406233026093580</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:26.145</td>
+          <td>THREAT-20260406233026145061</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>smart-plug-sensor</td>
+          <td>home/smart-plug/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:26.146</td>
+          <td>THREAT-20260406233026146027</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:26.197</td>
+          <td>THREAT-20260406233026197814</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:26.249</td>
+          <td>THREAT-20260406233026249579</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:26.250</td>
+          <td>THREAT-20260406233026250024</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:26.345</td>
+          <td>THREAT-20260406233026345849</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>temp-sensor</td>
+          <td>home/thermo/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:26.394</td>
+          <td>THREAT-20260406233026394103</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:26.510</td>
+          <td>THREAT-20260406233026510517</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:26.678</td>
+          <td>THREAT-20260406233026678700</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:26.745</td>
+          <td>THREAT-20260406233026745914</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>motion-sensor</td>
+          <td>home/door/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:26.813</td>
+          <td>THREAT-20260406233026813546</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:27.049</td>
+          <td>THREAT-20260406233027049812</td>
+          <td><span class="badge badge-high">HIGH</span></td>
+          <td>camera-sensor</td>
+          <td>home/camera/data</td>
+          <td>THREAT</td>
+          <td>block_device</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:27.184</td>
+          <td>THREAT-20260406233027184542</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:27.421</td>
+          <td>THREAT-20260406233027421594</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:27.622</td>
+          <td>THREAT-20260406233027622725</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:29.208</td>
+          <td>THREAT-20260406233029208146</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:29.275</td>
+          <td>THREAT-20260406233029274999</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:29.916</td>
+          <td>THREAT-20260406233029916451</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:30.657</td>
+          <td>THREAT-20260406233030657666</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+        <tr>
+          <td>2026-04-06 23:30:30.826</td>
+          <td>THREAT-20260406233030826699</td>
+          <td><span class="badge badge-medium">MEDIUM</span></td>
+          <td>sound-sensor</td>
+          <td>home/sound/data</td>
+          <td>SUSPICIOUS</td>
+          <td>-</td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+  
+  <div class="card">
+    <h2>Attack Types Observed</h2>
+    <table>
+      <thead>
+        <tr><th>Attack Type</th><th>Count</th></tr>
+      </thead>
+      <tbody>
+        
+        <tr><td>value_range</td><td>82</td></tr>
+        
+      </tbody>
+    </table>
+  </div>
+  
+
+  <div class="footer">
+    IoT Network Security System &mdash; Summary Report &mdash; Generated 2026-04-06 23:32:07
+  </div>
+</div>
+</body>
+</html>
