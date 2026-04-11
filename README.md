@@ -479,8 +479,8 @@ Stop order: `Ctrl+C` on the IDS (generates summary report), then `Ctrl+C` on the
 - **Security Module — Gemini Component**  
   https://adelian14.github.io/IOT-network/GEMINI_ROLE.html  
 
-- **System — Metrics & Evaluation**  
-  https://adelian14.github.io/IOT-network/metrics_explained.html  
-
 - **Offensive Module — Attack Simulation**  
   https://adelian14.github.io/IOT-network/offensive_module.html  
+
+- **System — Metrics & Evaluation**  
+  https://adelian14.github.io/IOT-network/metrics_explained.html  
