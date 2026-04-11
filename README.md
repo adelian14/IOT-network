@@ -22,6 +22,7 @@ A complete red-team / blue-team security simulation for a GNS3 smart-home IoT ne
 8. [MQTT Topics](#mqtt-topics)
 9. [Setup & Installation](#setup--installation)
 10. [Startup Order](#startup-order)
+11. [Reference Documentation](#reference-documentation)
 
 ---
 
@@ -467,3 +468,19 @@ python -m metrics.tracker
 7. Start `python offensive/attacker.py` when ready to test
 
 Stop order: `Ctrl+C` on the IDS (generates summary report), then `Ctrl+C` on the metrics tracker (generates metrics report), then run `python generate_reports_manifest.py` to update the dashboard.
+
+---
+
+## Reference Documentation
+
+- **Security Module — Packet Flow**  
+  https://adelian14.github.io/IOT-network/PACKET_FLOW.html  
+
+- **Security Module — Gemini Component**  
+  https://adelian14.github.io/IOT-network/GEMINI_ROLE.html  
+
+- **System — Metrics & Evaluation**  
+  https://adelian14.github.io/IOT-network/metrics_explained.html  
+
+- **Offensive Module — Attack Simulation**  
+  https://adelian14.github.io/IOT-network/offensive_module.html  
